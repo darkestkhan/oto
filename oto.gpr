@@ -31,8 +31,4 @@ project Oto is
     for Default_Switches ("Fortran") use Fortran_Switches & CPU & OPT & WARN;
   end Compiler;
 
-  package Linker is
-    for Default_Switches ("Ada") use ();
-  end Linker;
-
 end Oto;
