@@ -708,13 +708,10 @@ package Oto.EFX is
   ---------------------------------------------------------------------------
 
   procedure Gen_Effects (N: in AL.SizeI; Effects: in AL.Pointer);
-  Pragma Import (StdCall, Gen_Effects, "alGenEffects");
 
   procedure Delete_Effects (N: in AL.SizeI; Effects: in AL.Pointer);
-  Pragma Import (StdCall, Delete_Effects, "alDeleteEffects");
 
   function Is_Effect (Effect: in AL.UInt) return AL.Bool;
-  Pragma Import (StdCall, Is_Effect, "alIsEffect");
 
   procedure Effect (Effect: in AL.UInt; Param: in AL.Enum; Value: in AL.Int);
 
@@ -726,51 +723,42 @@ package Oto.EFX is
       Param : in AL.Enum;
       Values: in AL.Pointer
     );
-  Pragma Import (StdCall, Effect_IV, "alEffectiv");
 
   procedure Effect_FV
     ( Effect: in AL.UInt;
       Param : in AL.Enum;
       Values: in AL.Pointer
     );
-  Pragma Import (StdCall, Effect_FV, "alEffectfv");
 
   procedure Get_Effect_I
     ( Effect: in AL.UInt;
       Param : in AL.Enum;
       Value : in AL.Pointer
     );
-  Pragma Import (StdCall, Get_Effect_I, "alGetEffecti");
 
   procedure Get_Effect_IV
     ( Effect: in AL.UInt;
       Param : in AL.Enum;
       Values: in AL.Pointer
     );
-  Pragma Import (StdCall, Get_Effect_IV, "alGetEffectiv");
 
   procedure Get_Effect_F
     ( Effect: in AL.UInt;
       Param : in AL.Enum;
       Value : in AL.Pointer
     );
-  Pragma Import (StdCall, Get_Effect_F, "alGetEffectf");
 
   procedure Get_Effect_FV
     ( Effect: in AL.UInt;
       Param : in AL.Enum;
       Values: in AL.Pointer
     );
-  Pragma Import (StdCall, Get_Effect_FV, "alGetEffectfv");
 
   procedure Gen_Filters (N: in AL.SizeI; Filters: in AL.UInt);
-  Pragma Import (StdCall, Gen_Filters, "alGenFilters");
 
   procedure Delete_Filters (N: in AL.SizeI; Filters: in AL.Pointer);
-  Pragma Import (StdCall, Delete_Filters, "alDeleteFilters");
 
   function Is_Filter (Filter: in AL.UInt) return AL.Bool;
-  Pragma Import (StdCall, Is_Filter, "alIsFilter");
 
   procedure Filter (Filter: in AL.UInt; Param: in AL.Enum; Value: in AL.Int);
 
@@ -782,108 +770,133 @@ package Oto.EFX is
       Param : in AL.Enum;
       Values: in AL.Pointer
     );
-  Pragma Import (StdCall, Filter_IV, "alFilteriv");
 
   procedure Filter_FV
     ( Filter: in AL.UInt;
       Param : in AL.Enum;
       Values: in AL.Pointer
     );
-  Pragma Import (StdCall, Filter_FV, "alFilterfv");
 
   procedure Get_Filter_I
     ( Filter: in AL.UInt;
       Param : in AL.Enum;
       Value : in AL.Pointer
     );
-  Pragma Import (StdCall, Get_Filter_I, "alGetFilteri");
 
   procedure Get_Filter_IV
     ( Filter: in AL.UInt;
       Param : in AL.Enum;
       Values: in AL.Int
     );
-  Pragma Import (StdCall, Get_Filter_IV, "alGetFilteriv");
 
   procedure Get_Filter_F
     ( Filter: in AL.UInt;
       Param : in AL.Enum;
       Values: in AL.Pointer
     );
-  Pragma Import (StdCall, Get_Filter_F, "alGetFilterf");
 
   procedure Get_Filter_FV
     ( Filter: in AL.UInt;
       Param : in AL.Enum;
       Values: in AL.Pointer
     );
-  Pragma Import (StdCall, Get_Filter_FV, "alGetFilterfv");
 
   procedure Gen_Auxiliary_Effect_Slot
     ( N           : in AL.SizeI;
       Effect_Slots: in AL.Pointer
     );
-  Pragma Import
-    ( StdCall, Gen_Auxiliary_Effect_Slot, "alGenAuxiliaryEffectSlots" );
 
   procedure Delete_Auxiliary_Effect_Slots
     ( N           : in AL.SizeI;
       Effect_Slots: in AL.Pointer
     );
-  Pragma Import
-    ( StdCall, Delete_Auxiliary_Effect_Slots, "alDeleteAuxiliaryEffectSlots" );
 
   function Is_Auxiliary_Effect_Slot (Effect_Slot: in AL.UInt) return AL.Bool;
-  Pragma Import (StdCall, Is_Auxiliary_Effect_Slot, "alIsAuxiliaryEffectSlot");
 
   procedure Auxiliary_Effect_Slot (Effect_Slot: in AL.UInt; Param: in AL.Enum; Value: in AL.Int);
+
   procedure Auxiliary_Effect_Slot (Effect_Slot: in AL.UInt; Param: in AL.Enum; Value: in Float);
---AL_API ALvoid AL_APIENTRY alAuxiliaryEffectSloti(ALuint effectslot, ALenum param, ALint iValue);
---AL_API ALvoid AL_APIENTRY alAuxiliaryEffectSlotf(ALuint effectslot, ALenum param, ALfloat flValue);
+  Pragma Inline (Auxiliary_Effect_Slot);
 
   procedure Auxiliary_Effect_Slot_IV
     ( Effect_Slot : in AL.UInt;
       Param       : in AL.Enum;
       Values      : in AL.Pointer
     );
-  Pragma Import (StdCall, Auxiliary_Effect_Slot_IV, "alAuxiliaryEffectSlotiv");
 
   procedure Auxiliary_Effect_Slot_FV
     ( Effect_Slot : in AL.UInt;
       Param       : in AL.Enum;
       Values      : in AL.Pointer
     );
-  Pragma Import (StdCall, Auxiliary_Effect_Slot_FV, "alAuxiliaryEffectSlotfv");
 
   procedure Get_Auxiliary_Effects_Slot_I
     ( Effect_Slot : in AL.UInt;
       Param       : in AL.Enum;
       Value       : in AL.Pointer
     );
-  Pragma Import
-    ( StdCall, Get_Auxiliary_Effects_Slot_I, "alGetAuxiliaryEffectSloti" );
 
   procedure Get_Auxiliary_Effect_Slot_IV
     ( Effect_Slot : in AL.UInt;
       Param       : in AL.Enum;
       Values      : in AL.Pointer
     );
-  Pragma Import
-    ( StdCall, Get_Auxiliary_Effect_Slot_IV, "alGetAuxiliaryEffectSlotiv" );
 
   procedure Get_Auxiliary_Effect_Slot_F
     ( Effect_Slot : in AL.UInt;
       Param       : in AL.Enum;
       Value       : in AL.Pointer
     );
-  Pragma Import
-    ( StdCall, Get_Auxiliary_Effect_Slot_F, "alGetAuxiliaryEffectSlotf" );
 
   procedure Get_Auxiliary_Effect_Slot_FV
     ( Effect_Slot : in AL.UInt;
       Param       : in AL.Enum;
       Values      : in AL.Pointer
     );
+
+  ---------------------------------------------------------------------------
+
+private
+
+  ---------------------------------------------------------------------------
+
+                            -------------------
+                            -- I M P O R T S --
+                            -------------------
+
+  ---------------------------------------------------------------------------
+
+  Pragma Import (StdCall, Gen_Effects, "alGenEffects");
+  Pragma Import (StdCall, Delete_Effects, "alDeleteEffects");
+  Pragma Import (StdCall, Is_Effect, "alIsEffect");
+  Pragma Import (StdCall, Effect_IV, "alEffectiv");
+  Pragma Import (StdCall, Effect_FV, "alEffectfv");
+  Pragma Import (StdCall, Get_Effect_I, "alGetEffecti");
+  Pragma Import (StdCall, Get_Effect_IV, "alGetEffectiv");
+  Pragma Import (StdCall, Get_Effect_F, "alGetEffectf");
+  Pragma Import (StdCall, Get_Effect_FV, "alGetEffectfv");
+  Pragma Import (StdCall, Gen_Filters, "alGenFilters");
+  Pragma Import (StdCall, Delete_Filters, "alDeleteFilters");
+  Pragma Import (StdCall, Is_Filter, "alIsFilter");
+  Pragma Import (StdCall, Filter_IV, "alFilteriv");
+  Pragma Import (StdCall, Filter_FV, "alFilterfv");
+  Pragma Import (StdCall, Get_Filter_I, "alGetFilteri");
+  Pragma Import (StdCall, Get_Filter_IV, "alGetFilteriv");
+  Pragma Import (StdCall, Get_Filter_F, "alGetFilterf");
+  Pragma Import (StdCall, Get_Filter_FV, "alGetFilterfv");
+  Pragma Import
+    ( StdCall, Gen_Auxiliary_Effect_Slot, "alGenAuxiliaryEffectSlots" );
+  Pragma Import
+    ( StdCall, Delete_Auxiliary_Effect_Slots, "alDeleteAuxiliaryEffectSlots" );
+  Pragma Import (StdCall, Is_Auxiliary_Effect_Slot, "alIsAuxiliaryEffectSlot");
+  Pragma Import (StdCall, Auxiliary_Effect_Slot_IV, "alAuxiliaryEffectSlotiv");
+  Pragma Import (StdCall, Auxiliary_Effect_Slot_FV, "alAuxiliaryEffectSlotfv");
+  Pragma Import
+    ( StdCall, Get_Auxiliary_Effects_Slot_I, "alGetAuxiliaryEffectSloti" );
+  Pragma Import
+    ( StdCall, Get_Auxiliary_Effect_Slot_IV, "alGetAuxiliaryEffectSlotiv" );
+  Pragma Import
+    ( StdCall, Get_Auxiliary_Effect_Slot_F, "alGetAuxiliaryEffectSlotf" );
   Pragma Import
     ( StdCall, Get_Auxiliary_Effect_Slot_FV, "alGetAuxiliaryEffectSlotfv" );
 
