@@ -2,7 +2,7 @@ pragma License (Modified_GPL);
 ------------------------------------------------------------------------------
 -- EMAIL: <darkestkhan@gmail.com>                                           --
 -- License: Modified GNU GPLv3 or any later as published by Free Software   --
---  Foundation (GMGPL, see COPYING file).                                    --
+--  Foundation (GMGPL, see COPYING file).                                   --
 --                                                                          --
 --                    Copyright © 2014 darkestkhan                          --
 ------------------------------------------------------------------------------
