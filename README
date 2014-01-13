@@ -4,6 +4,9 @@ This library tries to be as close to original API as possible, while using
 Ada types whenever possible. It is under GMGPL license. Full list of authors
 is in AUTHORS file.
 
+Use gprbuild for building. Gnatmake may work but is not supported (and is
+deprecated).
+
 ------------------------------------------------------------------------------
 --                    Copyright © 2014 darkestkhan                          --
 ------------------------------------------------------------------------------
