@@ -26,7 +26,6 @@ pragma License (Modified_GPL);
 -- however invalidate  any other reasons why  the executable file  might be --
 -- covered by the  GNU Public License.                                      --
 ------------------------------------------------------------------------------
-with Ada.Unchecked_Deallocation;
 
 with Interfaces.C;
 with Interfaces.C.Strings;
@@ -59,6 +58,70 @@ package body Oto.ALUT is
                 -------------------------------------------
                 -- S U B P R O G R A M S '   B O D I E S --
                 -------------------------------------------
+
+  ---------------------------------------------------------------------------
+
+  function Init (Arguments: in String_Array) return AL.Bool
+  is
+    function alutInit
+      ( Argcp : in AL.Pointer;
+        Argv  : in CStrings.chars_ptr_array
+      ) return AL.Bool;
+    Pragma Import (StdCall, alutInit, "alutInit");
+
+    Argv  : CStrings.chars_ptr_array (0 .. IC.size_t (Arguments'Length - 1));
+    Argcp : constant AL.Int := AL.Int (Arguments'Length);
+
+    CString: CStrings.char_array_access;
+
+    Success: AL.Bool;
+  begin
+    for K in Argv'Range loop
+      CString := new IC.char_array'(IC.To_C (Arguments (Arguments'First + Natural (K)).all));
+      Argv (K) := CStrings.To_Chars_Ptr (CString);
+      Free (CString);
+    end loop;
+
+    Success := alutInit (Argcp'Address, Argv);
+
+    for K in Argv'Range loop
+      CStrings.Free (Argv (K));
+    end loop;
+
+    return Success;
+  end Init;
+
+  ---------------------------------------------------------------------------
+
+  function Init_Without_Context (Arguments: in String_Array) return AL.Bool
+  is
+    function alutInitWithoutContext
+      ( Argcp : in AL.Pointer;
+        Argv  : in CStrings.chars_ptr_array
+      ) return AL.Bool;
+    Pragma Import (StdCall, alutInitWithoutContext, "alutInitWithoutContext");
+
+    Argv  : CStrings.chars_ptr_array (0 .. IC.size_t (Arguments'Length - 1));
+    Argcp : constant AL.Int := AL.Int (Arguments'Length);
+
+    CString: CStrings.char_array_access;
+
+    Success: AL.Bool;
+  begin
+    for K in Argv'Range loop
+      CString := new IC.char_array'(IC.To_C (Arguments (Arguments'First + Natural (K)).all));
+      Argv (K) := CStrings.To_Chars_Ptr (CString);
+      Free (CString);
+    end loop;
+
+    Success := alutInitWithoutContext (Argcp'Address, Argv);
+
+    for K in Argv'Range loop
+      CStrings.Free (Argv (K));
+    end loop;
+
+    return Success;
+  end Init_Without_Context;
 
   ---------------------------------------------------------------------------
 

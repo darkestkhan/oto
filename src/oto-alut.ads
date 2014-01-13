@@ -26,10 +26,32 @@ pragma License (Modified_GPL);
 -- however invalidate  any other reasons why  the executable file  might be --
 -- covered by the  GNU Public License.                                      --
 ------------------------------------------------------------------------------
+with Ada.Unchecked_Deallocation;
+
 with Oto.AL;
 use Oto;
-
 package Oto.ALUT is
+
+  ---------------------------------------------------------------------------
+
+                              ---------------
+                              -- T Y P E S --
+                              ---------------
+
+  ---------------------------------------------------------------------------
+
+  type String_Access is access String;
+  type String_Array  is array (Natural range <>) of String_Access;
+
+  ---------------------------------------------------------------------------
+
+                      ---------------------------------
+                      -- I N S T A N T I A T I O N S --
+                      ---------------------------------
+
+  ---------------------------------------------------------------------------
+
+  procedure Free is new Ada.Unchecked_Deallocation (String, String_Access);
 
   ---------------------------------------------------------------------------
 
@@ -38,6 +60,8 @@ package Oto.ALUT is
                           -----------------------
 
   ---------------------------------------------------------------------------
+
+  Null_String_Array       : constant String_Array (1 .. 0) := (others => Null);
 
   ALUT_API_MAJOR_VERSION                 : constant AL.Enum := 1;
   ALUT_API_MINOR_VERSION                 : constant AL.Enum := 1;
@@ -78,9 +102,12 @@ package Oto.ALUT is
                         ---------------------------
 
   ---------------------------------------------------------------------------
+  -- Init function are not tested - Constraint_Error is possible.
+  function Init (Arguments: in String_Array) return AL.Bool;
+  Pragma Inline (Init);
 
---ALUT_API ALboolean ALUT_APIENTRY alutInit (int *argcp, char **argv);
---ALUT_API ALboolean ALUT_APIENTRY alutInitWithoutContext (int *argcp, char **argv);
+  function Init_Without_Context (Arguments: in String_Array) return AL.Bool;
+  Pragma Inline (Init_Without_Context);
 
   -- alutExit is bound to Quit instead of Exit due to "exit" being Ada keyword.
   function Quit return AL.Bool;
