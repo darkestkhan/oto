@@ -273,13 +273,10 @@ package Oto.AL is
   ---------------------------------------------------------------------------
   -- Renderer State management
   procedure Enable (Capability: in Enum);
-  Pragma Import (StdCall, Enable, "alEnable");
 
   procedure Disable (Capability: in Enum);
-  Pragma Import (StdCall, Disable, "alDisable");
 
   function Is_Enabled (Capability: in Enum) return Bool;
-  Pragma Import (StdCall, Is_Enabled, "alIsEnabled");
 
   -- State retrieval
   function Get_String (Param: in Enum) return String;
@@ -308,7 +305,6 @@ package Oto.AL is
   -- Error support.
   -- Obtain the most recent error generated in the AL state machine.
   function Get_Error return Enum;
-  Pragma Import (StdCall, Get_Error, "alGetError");
 
   -- Extension support.
   -- Query for the presence of an extension, and obtain any appropriate
@@ -354,14 +350,11 @@ package Oto.AL is
   Pragma Inline (Listener);
 
   procedure Listener_FV (Param: in Enum; Values: in Pointer);
-  Pragma Import (StdCall, Listener_FV, "alListenerfv");
 
   procedure Listener_IV (Param: in Enum; Values: in Pointer);
-  Pragma Import (StdCall, Listener_IV, "alListeneriv");
 
  -- Get Listener parameters
   procedure Get_Listener_F (Param: in Enum; Value: in Pointer);
-  Pragma Import (StdCall, Get_Listener_F, "alGetListenerf");
 
   procedure Get_Listener_3F
     ( Param: in Enum;
@@ -369,13 +362,10 @@ package Oto.AL is
       Value2: in Pointer;
       Value3: in Pointer
     );
-  Pragma Import (StdCall, Get_Listener_3F, "alGetListener3f");
 
   procedure Get_Listener_FV (Param: in Enum; Values: in Pointer);
-  Pragma Import (StdCall, Get_Listener_FV, "alGetListenerfv");
 
   procedure Get_Listener_I (Param: in Enum; Value: in Pointer);
-  Pragma Import (StdCall, Get_Listener_I, "alGetListeneri");
 
   procedure Get_Listener_3I
     ( Param: in Enum;
@@ -383,10 +373,8 @@ package Oto.AL is
       Value2: in Pointer;
       Value3: in Pointer
     );
-  Pragma Import (StdCall, Get_Listener_3I, "alGetListener3i");
 
   procedure Get_Listener_IV (Param: in Enum; Values: in Pointer);
-  Pragma Import (StdCall, Get_Listener_IV, "alGetListeneriv");
 
   -- SOURCE
   -- Sources represent individual sound objects in 3D-space.
@@ -421,15 +409,12 @@ package Oto.AL is
 
   -- Create Source objects
   procedure Gen_Sources (N: in SizeI; Sources: in Pointer);
-  Pragma Import (StdCall, Gen_Sources, "alGenSources");
 
   -- Delete Source objects
   procedure Delete_Sources (N: in SizeI; Sources: in Pointer);
-  Pragma Import (StdCall, Delete_Sources, "alDeleteSources");
 
   -- Verify a handle is a valid Source
   function Is_Source (SID: in UInt) return Bool;
-  Pragma Import (StdCall, Is_Source, "alIsSource");
 
   -- Set Source parameters
   procedure Source (SID: in UInt; Param: in Enum; Value: in Float);
@@ -454,14 +439,11 @@ package Oto.AL is
   Pragma Inline (Source);
 
   procedure Source_FV (SID: in UInt; Param: in Enum; Values: in Pointer);
-  Pragma Import (StdCall, Source_FV, "alSourcefv");
 
   procedure Source_IV (SID: in UInt; Param: in Enum; Values: in Pointer);
-  Pragma Import (StdCall, Source_IV, "alSourceiv");
 
  -- Get Source parameters
   procedure Get_Source_F (SID: in UInt; Param: in Enum; Value: in Pointer);
-  Pragma Import (StdCall, Get_Source_F, "alGetSourcef");
 
   procedure Get_Source_3F
     ( SID: in UInt;
@@ -470,13 +452,10 @@ package Oto.AL is
       Value2: in Pointer;
       Value3: in Pointer
     );
-  Pragma Import (StdCall, Get_Source_3F, "alGetSource3f");
 
   procedure Get_Source_FV (SID: in UInt; Param: in Enum; Values: in Pointer);
-  Pragma Import (StdCall, Get_Source_FV, "alGetSourcefv");
 
   procedure Get_Source_I (SID: in UInt; Param: in Enum; Value: in Pointer);
-  Pragma Import (StdCall, Get_Source_I, "alGetSourcei");
 
   procedure Get_Source_3I
     ( SID: in UInt;
@@ -485,10 +464,8 @@ package Oto.AL is
       Value2: in Pointer;
       Value3: in Pointer
     );
-  Pragma Import (StdCall, Get_Source_3I, "alGetSource3i");
 
   procedure Get_Source_IV (SID: in UInt; Param: in Enum; Values: in Pointer);
-  Pragma Import (StdCall, Get_Source_IV, "alGetSourceiv");
 
   -- Source playback calls
 
@@ -522,14 +499,12 @@ package Oto.AL is
       Num_Entries: in SizeI;
       BIDs: in Pointer
     );
-  Pragma Import (StdCall, Source_Queue_Buffers, "alSourceQueueBuffers");
 
   procedure Source_Unqueue_Buffers
     ( SID: in UInt;
       Num_Entries: in SizeI;
       BIDs: in Pointer
     );
-  Pragma Import (StdCall, Source_Unqueue_Buffers, "alSourceUnqueueBuffers");
 
   -- BUFFER
   -- Buffer objects are storage space for sample data.
@@ -545,15 +520,12 @@ package Oto.AL is
 
   -- Create Buffer objects
   procedure Gen_Buffers (N: in SizeI; Buffers: in Pointer);
-  Pragma Import (StdCall, Gen_Buffers, "alGenBuffers");
 
   -- Delete Buffer objects
   procedure Delete_Buffers (N: in SizeI; Buffers: in Pointer);
-  Pragma Import (StdCall, Delete_Buffers, "alDeleteBuffers");
 
   -- Verify a handle is a valid Buffer
   function Is_Buffer (BID: in UInt) return Bool;
-  Pragma Import (StdCall, Is_Buffer, "alIsBuffer");
 
   -- Specify the data to be copied into a buffer
   procedure Buffer_Data
@@ -563,7 +535,6 @@ package Oto.AL is
       Size: in SizeI;
       Freq: in SizeI
     );
-  Pragma Import (StdCall, Buffer_Data, "alBufferData");
 
   -- Set Buffer parameters
   procedure Buffer (BID: in UInt; Param: in Enum; Value: in Float);
@@ -588,14 +559,11 @@ package Oto.AL is
   Pragma Inline (Buffer);
 
   procedure Buffer_FV (BID: in UInt; Param: in Enum; Values: in Pointer);
-  Pragma Import (StdCall, Buffer_FV, "alBufferfv");
 
   procedure Buffer_IV (BID: in UInt; Param: in Enum; Values: in Pointer);
-  Pragma Import (StdCall, Buffer_IV, "alBufferiv");
 
   -- Get Buffer parameters
   procedure Get_Buffer_F (BID: in UInt; Value: in Pointer);
-  Pragma Import (StdCall, Get_Buffer_F, "alGetBufferf");
 
   procedure Get_Buffer_3F
     ( BID: in UInt;
@@ -604,13 +572,10 @@ package Oto.AL is
       Value2: in Pointer;
       Value3: in Pointer
     );
-  Pragma Import (StdCall, Get_Buffer_3F, "alGetBuffer3f");
 
   procedure Get_Buffer_FV (BID: in UInt; Param: in Enum; Values: in Float);
-  Pragma Import (StdCall, Get_Buffer_FV, "alGetBufferfv");
 
   procedure Get_Buffer_I (BID: in UInt; Param: in Enum; Value: in Pointer);
-  Pragma Import (StdCall, Get_Buffer_I, "alGetBufferi");
 
   procedure Get_Buffer_3I
     ( BID: in UInt;
@@ -619,22 +584,74 @@ package Oto.AL is
       Value2: in Pointer;
       Value3: in Pointer
     );
-  Pragma Import (StdCall, Get_Buffer_3I, "alGetBuffer3i");
 
   procedure Get_Buffer_IV (BID: in UInt; Param: in Enum; Values: in Pointer);
-  Pragma Import (StdCall, Get_Buffer_IV, "alGetBufferiv");
 
   -- Global Parameters
   procedure Doppler_Factor (Value: in Float);
-  Pragma Import (StdCall, Doppler_Factor, "alDopplerFactor");
 
   procedure Doppler_Velocity (Value: in Float);
-  Pragma Import (StdCall, Doppler_Velocity, "alDopplerVelocity");
 
   procedure Speed_Of_Sound (Value: in Float);
-  Pragma Import (StdCall, Speed_Of_Sound, "alSpeedOfSound");
 
   procedure Distance_Model (Distance_Model: in Enum);
+
+  ---------------------------------------------------------------------------
+
+  -- NOTE: Pointer to function types are not bound.
+
+  ---------------------------------------------------------------------------
+
+private
+
+  ---------------------------------------------------------------------------
+
+                            -------------------
+                            -- I M P O R T S --
+                            -------------------
+
+  ---------------------------------------------------------------------------
+
+  Pragma Import (StdCall, Enable, "alEnable");
+  Pragma Import (StdCall, Disable, "alDisable");
+  Pragma Import (StdCall, Is_Enabled, "alIsEnabled");
+  Pragma Import (StdCall, Get_Error, "alGetError");
+  Pragma Import (StdCall, Listener_FV, "alListenerfv");
+  Pragma Import (StdCall, Listener_IV, "alListeneriv");
+  Pragma Import (StdCall, Get_Listener_F, "alGetListenerf");
+  Pragma Import (StdCall, Get_Listener_3F, "alGetListener3f");
+  Pragma Import (StdCall, Get_Listener_FV, "alGetListenerfv");
+  Pragma Import (StdCall, Get_Listener_I, "alGetListeneri");
+  Pragma Import (StdCall, Get_Listener_3I, "alGetListener3i");
+  Pragma Import (StdCall, Get_Listener_IV, "alGetListeneriv");
+  Pragma Import (StdCall, Gen_Sources, "alGenSources");
+  Pragma Import (StdCall, Delete_Sources, "alDeleteSources");
+  Pragma Import (StdCall, Is_Source, "alIsSource");
+  Pragma Import (StdCall, Source_FV, "alSourcefv");
+  Pragma Import (StdCall, Source_IV, "alSourceiv");
+  Pragma Import (StdCall, Get_Source_F, "alGetSourcef");
+  Pragma Import (StdCall, Get_Source_3F, "alGetSource3f");
+  Pragma Import (StdCall, Get_Source_FV, "alGetSourcefv");
+  Pragma Import (StdCall, Get_Source_I, "alGetSourcei");
+  Pragma Import (StdCall, Get_Source_3I, "alGetSource3i");
+  Pragma Import (StdCall, Get_Source_IV, "alGetSourceiv");
+  Pragma Import (StdCall, Source_Queue_Buffers, "alSourceQueueBuffers");
+  Pragma Import (StdCall, Source_Unqueue_Buffers, "alSourceUnqueueBuffers");
+  Pragma Import (StdCall, Gen_Buffers, "alGenBuffers");
+  Pragma Import (StdCall, Delete_Buffers, "alDeleteBuffers");
+  Pragma Import (StdCall, Is_Buffer, "alIsBuffer");
+  Pragma Import (StdCall, Buffer_Data, "alBufferData");
+  Pragma Import (StdCall, Buffer_FV, "alBufferfv");
+  Pragma Import (StdCall, Buffer_IV, "alBufferiv");
+  Pragma Import (StdCall, Get_Buffer_F, "alGetBufferf");
+  Pragma Import (StdCall, Get_Buffer_3F, "alGetBuffer3f");
+  Pragma Import (StdCall, Get_Buffer_FV, "alGetBufferfv");
+  Pragma Import (StdCall, Get_Buffer_I, "alGetBufferi");
+  Pragma Import (StdCall, Get_Buffer_3I, "alGetBuffer3i");
+  Pragma Import (StdCall, Get_Buffer_IV, "alGetBufferiv");
+  Pragma Import (StdCall, Doppler_Factor, "alDopplerFactor");
+  Pragma Import (StdCall, Doppler_Velocity, "alDopplerVelocity");
+  Pragma Import (StdCall, Speed_Of_Sound, "alSpeedOfSound");
   Pragma Import (StdCall, Distance_Model, "alDistanceModel");
 
   ---------------------------------------------------------------------------
