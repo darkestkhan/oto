@@ -44,6 +44,7 @@ package Oto.AL is
   subtype Bool    is Binary.Byte;
   subtype Byte    is Binary.S_Byte;
   subtype Chat    is Binary.Byte;
+  subtype Double  is Long_Float;
   subtype Enum    is Binary.S_Word;
   subtype Int     is Integer;
   subtype Short   is Binary.S_Short;
@@ -102,7 +103,7 @@ package Oto.AL is
   AL_VELOCITY                               : constant Enum := 16#1006#;
 
   -- Indicate whether source is looping.
-  -- Type: ALboolean
+  -- Type: Bool
   -- Range:   [AL_TRUE, AL_FALSE]
   -- Default: FALSE.
   AL_LOOPING                                : constant Enum := 16#1007#;
@@ -262,6 +263,379 @@ package Oto.AL is
   AL_LINEAR_DISTANCE_CLAMPED                : constant Enum := 16#D004#;
   AL_EXPONENT_DISTANCE                      : constant Enum := 16#D005#;
   AL_EXPONENT_DISTANCE_CLAMPED              : constant Enum := 16#D006#;
+
+  ---------------------------------------------------------------------------
+
+                        ---------------------------
+                        -- S U B P R O G R A M S --
+                        ---------------------------
+
+  ---------------------------------------------------------------------------
+  -- Renderer State management
+  procedure Enable (Capability: in Enum);
+  Pragma Import (StdCall, Enable, "alEnable");
+
+  procedure Disable (Capability: in Enum);
+  Pragma Import (StdCall, Disable, "alDisable");
+
+  function Is_Enabled (Capability: in Enum) return Bool;
+  Pragma Import (StdCall, Is_Enabled, "alIsEnabled");
+
+  -- State retrieval
+  function Get_String (Param: in Enum) return String;
+  Pragma Inline (Get_String);
+
+  procedure Get_Boolean (Param: in Enum; Data: in Pointer);
+
+  function Get_Boolean (Param: in Enum) return Bool;
+  Pragma Inline (Get_Boolean);
+
+  procedure Get_Integer (Param: in Enum; Data: in Pointer);
+
+  function Get_Integer (Param: in Enum) return Int;
+  Pragma Inline (Get_Integer);
+
+  procedure Get_Float (Param: in Enum; Data: in Pointer);
+
+  function Get_Float (Param: in Enum) return Float;
+  Pragma Inline (Get_Float);
+
+  procedure Get_Double (Param: in Enum; Data: in Pointer);
+
+  function Get_Double (Param: in Enum) return Double;
+  Pragma Inline (Get_Double);
+
+  -- Error support.
+  -- Obtain the most recent error generated in the AL state machine.
+  function Get_Error return Enum;
+  Pragma Import (StdCall, Get_Error, "alGetError");
+
+  -- Extension support.
+  -- Query for the presence of an extension, and obtain any appropriate
+  -- function pointers and enum values.
+  function Is_Extension_Present (Ext_Name: in String) return Bool;
+  Pragma Inline (Is_Extension_Present);
+
+  function Get_Proc_Address (FName: in String) return Pointer;
+  Pragma Inline (Get_Proc_Address);
+
+  function Get_Enum_Value (EName: in String) return Enum;
+  Pragma Inline (Get_Enum_Value);
+
+ -- LISTENER
+ -- Listener represents the location and orientation of the
+ -- 'user' in 3D-space.
+ --
+ -- Properties include: -
+ --
+ -- Gain         AL_GAIN         Float
+ -- Position     AL_POSITION     Float[3]
+ -- Velocity     AL_VELOCITY     Float[3]
+ -- Orientation  AL_ORIENTATION  Float[6] (Forward then Up vectors)
+
+ -- Set Listener parameters
+  procedure Listener (Param: in Enum; Value: in Float);
+
+  procedure Listener
+    ( Param: in Enum;
+      Value1: in Float;
+      Value2: in Float;
+      Value3: in Float
+    );
+
+  procedure Listener (Param: in Enum; Value: in Int);
+
+  procedure Listener
+    ( Param: in Enum;
+      Value1: in Int;
+      Value2: in Int;
+      Value3: in Int
+    );
+  Pragma Inline (Listener);
+
+  procedure Listener_FV (Param: in Enum; Values: in Pointer);
+  Pragma Import (StdCall, Listener_FV, "alListenerfv");
+
+  procedure Listener_IV (Param: in Enum; Values: in Pointer);
+  Pragma Import (StdCall, Listener_IV, "alListeneriv");
+
+ -- Get Listener parameters
+  procedure Get_Listener_F (Param: in Enum; Value: in Pointer);
+  Pragma Import (StdCall, Get_Listener_F, "alGetListenerf");
+
+  procedure Get_Listener_3F
+    ( Param: in Enum;
+      Value1: in Pointer;
+      Value2: in Pointer;
+      Value3: in Pointer
+    );
+  Pragma Import (StdCall, Get_Listener_3F, "alGetListener3f");
+
+  procedure Get_Listener_FV (Param: in Enum; Values: in Pointer);
+  Pragma Import (StdCall, Get_Listener_FV, "alGetListenerfv");
+
+  procedure Get_Listener_I (Param: in Enum; Value: in Pointer);
+  Pragma Import (StdCall, Get_Listener_I, "alGetListeneri");
+
+  procedure Get_Listener_3I
+    ( Param: in Enum;
+      Value1: in Pointer;
+      Value2: in Pointer;
+      Value3: in Pointer
+    );
+  Pragma Import (StdCall, Get_Listener_3I, "alGetListener3i");
+
+  procedure Get_Listener_IV (Param: in Enum; Values: in Pointer);
+  Pragma Import (StdCall, Get_Listener_IV, "alGetListeneriv");
+
+  -- SOURCE
+  -- Sources represent individual sound objects in 3D-space.
+  -- Sources take the PCM data provided in the specified Buffer,
+  -- apply Source-specific modifications, and then
+  -- submit them to be mixed according to spatial arrangement etc.
+  --
+  -- Properties include: -
+  --
+  -- Gain                              AL_GAIN                 Float
+  -- Min Gain                          AL_MIN_GAIN             Float
+  -- Max Gain                          AL_MAX_GAIN             Float
+  -- Position                          AL_POSITION             Float[3]
+  -- Velocity                          AL_VELOCITY             Float[3]
+  -- Direction                         AL_DIRECTION            Float[3]
+  -- Head Relative Mode                AL_SOURCE_RELATIVE      Int (AL_TRUE or AL_FALSE)
+  -- Reference Distance                AL_REFERENCE_DISTANCE   Float
+  -- Max Distance                      AL_MAX_DISTANCE         Float
+  -- RollOff Factor                    AL_ROLLOFF_FACTOR       Float
+  -- Inner Angle                       AL_CONE_INNER_ANGLE     Int or Float
+  -- Outer Angle                       AL_CONE_OUTER_ANGLE     Int or Float
+  -- Cone Outer Gain                   AL_CONE_OUTER_GAIN      Int or Float
+  -- Pitch                             AL_PITCH                Float
+  -- Looping                           AL_LOOPING              Bool (AL_TRUE or AL_FALSE)
+  -- MS Offset                         AL_MSEC_OFFSET          Int or Float
+  -- Byte Offset                       AL_BYTE_OFFSET          Int or Float
+  -- Sample Offset                     AL_SAMPLE_OFFSET        Int or Float
+  -- Attached Buffer                   AL_BUFFER               Int
+  -- State (Query only)                AL_SOURCE_STATE         Int
+  -- Buffers Queued (Query only)       AL_BUFFERS_QUEUED       Int
+  -- Buffers Processed (Query only)    AL_BUFFERS_PROCESSED    Int
+
+  -- Create Source objects
+  procedure Gen_Sources (N: in SizeI; Sources: in Pointer);
+  Pragma Import (StdCall, Gen_Sources, "alGenSources");
+
+  -- Delete Source objects
+  procedure Delete_Sources (N: in SizeI; Sources: in Pointer);
+  Pragma Import (StdCall, Delete_Sources, "alDeleteSources");
+
+  -- Verify a handle is a valid Source
+  function Is_Source (SID: in UInt) return Bool;
+  Pragma Import (StdCall, Is_Source, "alIsSource");
+
+  -- Set Source parameters
+  procedure Source (SID: in UInt; Param: in Enum; Value: in Float);
+
+  procedure Source
+    ( SID: in UInt;
+      Param: in Enum;
+      Value1: in Float;
+      Value2: in Float;
+      Value3: in Float
+    );
+
+  procedure Source (SID: in UInt; Param: in Enum; Value: in Int);
+
+  procedure Source
+    ( SID: in UInt;
+      Param: in Enum;
+      Value1: in Int;
+      Value2: in Int;
+      Value3: in Int
+    );
+  Pragma Inline (Source);
+
+  procedure Source_FV (SID: in UInt; Param: in Enum; Values: in Pointer);
+  Pragma Import (StdCall, Source_FV, "alSourcefv");
+
+  procedure Source_IV (SID: in UInt; Param: in Enum; Values: in Pointer);
+  Pragma Import (StdCall, Source_IV, "alSourceiv");
+
+ -- Get Source parameters
+  procedure Get_Source_F (SID: in UInt; Param: in Enum; Value: in Pointer);
+  Pragma Import (StdCall, Get_Source_F, "alGetSourcef");
+
+  procedure Get_Source_3F
+    ( SID: in UInt;
+      Param: in Enum;
+      Value1: in Pointer;
+      Value2: in Pointer;
+      Value3: in Pointer
+    );
+  Pragma Import (StdCall, Get_Source_3F, "alGetSource3f");
+
+  procedure Get_Source_FV (SID: in UInt; Param: in Enum; Values: in Pointer);
+  Pragma Import (StdCall, Get_Source_FV, "alGetSourcefv");
+
+  procedure Get_Source_I (SID: in UInt; Param: in Enum; Value: in Pointer);
+  Pragma Import (StdCall, Get_Source_I, "alGetSourcei");
+
+  procedure Get_Source_3I
+    ( SID: in UInt;
+      Param: in Enum;
+      Value1: in Pointer;
+      Value2: in Pointer;
+      Value3: in Pointer
+    );
+  Pragma Import (StdCall, Get_Source_3I, "alGetSource3i");
+
+  procedure Get_Source_IV (SID: in UInt; Param: in Enum; Values: in Pointer);
+  Pragma Import (StdCall, Get_Source_IV, "alGetSourceiv");
+
+  -- Source playback calls
+
+  -- Play, replay, or resume (if paused) Source (or list of them)
+  procedure Source_Play (NS: in SizeI; SIDs: in Pointer);
+
+  procedure Source_Play (SID: in UInt);
+  Pragma Inline (Source_Play);
+
+  -- Stop a Source (or list of them)
+  procedure Source_Stop (NS: in SizeI; SIDs: in Pointer);
+
+  procedure Source_Stop (SID: in UInt);
+  Pragma Inline (Source_Stop);
+
+  -- Rewind a Source (or list of them)
+  procedure Source_Rewind (NS: in SizeI; SIDs: in Pointer);
+
+  procedure Source_Rewind (SID: in UInt);
+  Pragma Inline (Source_Rewind);
+
+  -- Pause a Source (or list of them)
+  procedure Source_Pause (NS: in SizeI; SIds: in Pointer);
+
+  procedure Source_Pause (SID: in UInt);
+  Pragma Inline (Source_Pause);
+
+  -- Source Queuing 
+  procedure Source_Queue_Buffers
+    ( SID: in UInt;
+      Num_Entries: in SizeI;
+      BIDs: in Pointer
+    );
+  Pragma Import (StdCall, Source_Queue_Buffers, "alSourceQueueBuffers");
+
+  procedure Source_Unqueue_Buffers
+    ( SID: in UInt;
+      Num_Entries: in SizeI;
+      BIDs: in Pointer
+    );
+  Pragma Import (StdCall, Source_Unqueue_Buffers, "alSourceUnqueueBuffers");
+
+  -- BUFFER
+  -- Buffer objects are storage space for sample data.
+  -- Buffers are referred to by Sources. One Buffer can be used
+  -- by multiple Sources.
+  --
+  -- Properties include: -
+  --
+  -- Frequency (Query only)    AL_FREQUENCY      Int
+  -- Size (Query only)         AL_SIZE           Int
+  -- Bits (Query only)         AL_BITS           Int
+  -- Channels (Query only)     AL_CHANNELS       Int
+
+  -- Create Buffer objects
+  procedure Gen_Buffers (N: in SizeI; Buffers: in Pointer);
+  Pragma Import (StdCall, Gen_Buffers, "alGenBuffers");
+
+  -- Delete Buffer objects
+  procedure Delete_Buffers (N: in SizeI; Buffers: in Pointer);
+  Pragma Import (StdCall, Delete_Buffers, "alDeleteBuffers");
+
+  -- Verify a handle is a valid Buffer
+  function Is_Buffer (BID: in UInt) return Bool;
+  Pragma Import (StdCall, Is_Buffer, "alIsBuffer");
+
+  -- Specify the data to be copied into a buffer
+  procedure Buffer_Data
+    ( BID: in UInt;
+      Format: in Enum;
+      Data: in Pointer;
+      Size: in SizeI;
+      Freq: in SizeI
+    );
+  Pragma Import (StdCall, Buffer_Data, "alBufferData");
+
+  -- Set Buffer parameters
+  procedure Buffer (BID: in UInt; Param: in Enum; Value: in Float);
+
+  procedure Buffer
+    ( BID: in UInt;
+      Param: in Enum;
+      Value1: in Float;
+      Value2: in Float;
+      Value3: in Float
+    );
+
+  procedure Buffer (BID: in UInt; Param: in Enum; Value: in Int);
+
+  procedure Buffer
+    ( BID: in UInt;
+      Param: in Enum;
+      Value1: in Int;
+      Value2: in Int;
+      Value3: in Int
+    );
+  Pragma Inline (Buffer);
+
+  procedure Buffer_FV (BID: in UInt; Param: in Enum; Values: in Pointer);
+  Pragma Import (StdCall, Buffer_FV, "alBufferfv");
+
+  procedure Buffer_IV (BID: in UInt; Param: in Enum; Values: in Pointer);
+  Pragma Import (StdCall, Buffer_IV, "alBufferiv");
+
+  -- Get Buffer parameters
+  procedure Get_Buffer_F (BID: in UInt; Value: in Pointer);
+  Pragma Import (StdCall, Get_Buffer_F, "alGetBufferf");
+
+  procedure Get_Buffer_3F
+    ( BID: in UInt;
+      Param: in Enum;
+      Value1: in Pointer;
+      Value2: in Pointer;
+      Value3: in Pointer
+    );
+  Pragma Import (StdCall, Get_Buffer_3F, "alGetBuffer3f");
+
+  procedure Get_Buffer_FV (BID: in UInt; Param: in Enum; Values: in Float);
+  Pragma Import (StdCall, Get_Buffer_FV, "alGetBufferfv");
+
+  procedure Get_Buffer_I (BID: in UInt; Param: in Enum; Value: in Pointer);
+  Pragma Import (StdCall, Get_Buffer_I, "alGetBufferi");
+
+  procedure Get_Buffer_3I
+    ( BID: in UInt;
+      Param: in Enum;
+      Value1: in Pointer;
+      Value2: in Pointer;
+      Value3: in Pointer
+    );
+  Pragma Import (StdCall, Get_Buffer_3I, "alGetBuffer3i");
+
+  procedure Get_Buffer_IV (BID: in UInt; Param: in Enum; Values: in Pointer);
+  Pragma Import (StdCall, Get_Buffer_IV, "alGetBufferiv");
+
+  -- Global Parameters
+  procedure Doppler_Factor (Value: in Float);
+  Pragma Import (StdCall, Doppler_Factor, "alDopplerFactor");
+
+  procedure Doppler_Velocity (Value: in Float);
+  Pragma Import (StdCall, Doppler_Velocity, "alDopplerVelocity");
+
+  procedure Speed_Of_Sound (Value: in Float);
+  Pragma Import (StdCall, Speed_Of_Sound, "alSpeedOfSound");
+
+  procedure Distance_Model (Distance_Model: in Enum);
+  Pragma Import (StdCall, Distance_Model, "alDistanceModel");
 
   ---------------------------------------------------------------------------
 
