@@ -135,25 +135,18 @@ package Oto.ALC is
     ( ADevice: in Device;
       Attr_List: in Pointer
     ) return Context;
---ALC_API ALCcontext *    ALC_APIENTRY alcCreateContext( ALCdevice *device, const ALCint* attrlist );
 
   function Make_Context_Current (AContext: in Context) return Bool;
---ALC_API ALCboolean      ALC_APIENTRY alcMakeContextCurrent( ALCcontext *context );
 
   procedure Process_Context (AContext: in Context);
---ALC_API void            ALC_APIENTRY alcProcessContext( ALCcontext *context );
 
   procedure Suspend_Context (AContext: in Context);
---ALC_API void            ALC_APIENTRY alcSuspendContext( ALCcontext *context );
 
   procedure Destroy_Context (AContext: in Context);
---ALC_API void            ALC_APIENTRY alcDestroyContext( ALCcontext *context );
 
   function Get_Current_Context return Context;
---ALC_API ALCcontext *    ALC_APIENTRY alcGetCurrentContext( void );
 
   function Get_Contexts_Device (AContext: in Context) return Device;
---ALC_API ALCdevice*      ALC_APIENTRY alcGetContextsDevice( ALCcontext *context );
 
   -- Device Management
   function Open_Device (Device_Name: in String) return Device;
