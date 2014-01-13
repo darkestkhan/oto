@@ -33,9 +33,9 @@ package Oto.ALUT is
 
   ---------------------------------------------------------------------------
 
-                        -----------------------
-                        -- C O N S T A N T S --
-                        -----------------------
+                          -----------------------
+                          -- C O N S T A N T S --
+                          -----------------------
 
   ---------------------------------------------------------------------------
 
@@ -70,6 +70,97 @@ package Oto.ALUT is
 
   ALUT_LOADER_BUFFER                     : constant AL.Enum := 16#300#;
   ALUT_LOADER_MEMORY                     : constant AL.Enum := 16#301#;
+
+  ---------------------------------------------------------------------------
+
+                        ---------------------------
+                        -- S U B P R O G R A M S --
+                        ---------------------------
+
+  ---------------------------------------------------------------------------
+
+--ALUT_API ALboolean ALUT_APIENTRY alutInit (int *argcp, char **argv);
+--ALUT_API ALboolean ALUT_APIENTRY alutInitWithoutContext (int *argcp, char **argv);
+
+  -- alutExit is bound to Quit instead of Exit due to "exit" being Ada keyword.
+  function Quit return AL.Bool;
+  Pragma Import (StdCall, Quit, "alutExit");
+
+  function Get_Error return AL.Enum;
+  Pragma Import (StdCall, Get_Error, "alutGetError");
+
+  function Get_Error_String (Error: in AL.Enum) return String;
+  Pragma Inline (Get_Error_String);
+
+  function Create_Buffer_From_File (File_Name: in String) return AL.UInt;
+  Pragma Inline (Create_Buffer_From_File);
+
+  function Create_Buffer_From_File_Image
+    ( Data  : in AL.Pointer;
+      Length: in AL.SizeI
+    ) return AL.UInt;
+  Pragma Import
+    ( StdCall, Create_Buffer_From_File_Image, "alutCreateBufferFromFileImage" );
+
+  function Create_Buffer_Hello_World return AL.UInt;
+  Pragma Import
+    ( StdCall, Create_Buffer_Hello_World, "alutCreateBufferHelloWorld" );
+
+  function Create_Buffer_Waveform
+    ( Waveshape : in AL.Enum;
+      Frequency : in Float;
+      Phase     : in Float;
+      Duration  : in Float
+    ) return AL.UInt;
+  Pragma Import (StdCall, Create_Buffer_Waveform, "alutCreateBufferWaveform");
+
+  function Load_Memory_From_File
+    ( File_Name : in String;
+      Format    : in AL.Pointer;
+      Size      : in AL.Pointer;
+      Frequency : in AL.Pointer
+    ) return AL.Pointer;
+  Pragma Inline (Load_Memory_From_File);
+
+  function Load_Memory_From_File_Image
+    ( Data      : in AL.Pointer;
+      Length    : in AL.SizeI;
+      Format    : in AL.Pointer;
+      Size      : in AL.Pointer;
+      Frequency : in AL.Pointer
+    ) return AL.Pointer;
+  Pragma Import
+    ( StdCall, Load_Memory_From_File_Image, "alutLoadMemoryFromFileImage" );
+
+  function Load_Memory_Hello_World
+    ( Format    : in AL.Pointer;
+      Size      : in AL.Pointer;
+      Frequency : AL.Pointer
+    ) return AL.Pointer;
+  Pragma Import (StdCall, Load_Memory_Hello_World, "alutLoadMemoryHelloWorld");
+
+  function Load_Memory_Wave_Form
+    ( Waveshape : in AL.Enum;
+      Frequency : in Float;
+      Phase     : in Float;
+      Duration  : in Float;
+      Format    : in AL.Pointer;
+      Size      : in AL.Pointer;
+      Freq      : in AL.Pointer
+    ) return AL.Pointer;
+  Pragma Import (StdCall, Load_Memory_Wave_Form, "alutLoadMemoryWaveform");
+
+  function Get_MIME_Types (Loader: in AL.Enum) return String;
+  Pragma Inline (Get_MIME_Types);
+
+  function Get_Major_Version return AL.Int;
+  Pragma Import (StdCall, Get_Major_Version, "alutGetMajorVersion");
+
+  function Get_Minor_Version return AL.Int;
+  Pragma Import (StdCall, Get_Minor_Version, "alutGetMinorVersion");
+
+  function Sleep (Duration: in Float) return AL.Bool;
+  Pragma Import (StdCall, Sleep, "alutSleep");
 
   ---------------------------------------------------------------------------
 
