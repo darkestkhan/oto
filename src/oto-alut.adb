@@ -69,25 +69,37 @@ package body Oto.ALUT is
       ) return AL.Bool;
     Pragma Import (StdCall, alutInit, "alutInit");
 
-    Argv  : CStrings.chars_ptr_array (0 .. IC.size_t (Arguments'Length - 1));
     Argcp : constant AL.Int := AL.Int (Arguments'Length);
 
     CString: CStrings.char_array_access;
 
     Success: AL.Bool;
   begin
-    for K in Argv'Range loop
-      CString := new IC.char_array'(IC.To_C (Arguments (Arguments'First + Natural (K)).all));
-      Argv (K) := CStrings.To_Chars_Ptr (CString);
-      Free (CString);
-    end loop;
+    if Arguments'Length /= 0 then
+      declare
+        Argv: CStrings.chars_ptr_array (0 .. IC.size_t (Arguments'Length - 1));
+      begin
+        for K in Argv'Range loop
+          CString := new
+            IC.char_array'(IC.To_C
+              ( Arguments (Arguments'First + Natural (K)).all) );
+          Argv (K) := CStrings.To_Chars_Ptr (CString);
+          Free (CString);
+        end loop;
 
-    Success := alutInit (Argcp'Address, Argv);
+        Success := alutInit (Argcp'Address, Argv);
 
-    for K in Argv'Range loop
-      CStrings.Free (Argv (K));
-    end loop;
-
+        for K in Argv'Range loop
+          CStrings.Free (Argv (K));
+        end loop;
+      end;
+    else
+      declare
+        Argv : CStrings.chars_ptr_array (1 .. 0);
+      begin
+        Success := alutInit (Argcp'Address, Argv);
+      end;
+    end if;
     return Success;
   end Init;
 
@@ -101,25 +113,37 @@ package body Oto.ALUT is
       ) return AL.Bool;
     Pragma Import (StdCall, alutInitWithoutContext, "alutInitWithoutContext");
 
-    Argv  : CStrings.chars_ptr_array (0 .. IC.size_t (Arguments'Length - 1));
     Argcp : constant AL.Int := AL.Int (Arguments'Length);
 
     CString: CStrings.char_array_access;
 
     Success: AL.Bool;
   begin
-    for K in Argv'Range loop
-      CString := new IC.char_array'(IC.To_C (Arguments (Arguments'First + Natural (K)).all));
-      Argv (K) := CStrings.To_Chars_Ptr (CString);
-      Free (CString);
-    end loop;
+    if Arguments'Length /= 0 then
+      declare
+        Argv: CStrings.chars_ptr_array (0 .. IC.size_t (Arguments'Length - 1));
+      begin
+        for K in Argv'Range loop
+          CString := new
+            IC.char_array'(IC.To_C
+              ( Arguments (Arguments'First + Natural (K)).all) );
+          Argv (K) := CStrings.To_Chars_Ptr (CString);
+          Free (CString);
+        end loop;
 
-    Success := alutInitWithoutContext (Argcp'Address, Argv);
+        Success := alutInitWithoutContext (Argcp'Address, Argv);
 
-    for K in Argv'Range loop
-      CStrings.Free (Argv (K));
-    end loop;
-
+        for K in Argv'Range loop
+          CStrings.Free (Argv (K));
+        end loop;
+      end;
+    else
+      declare
+        Argv : CStrings.chars_ptr_array (1 .. 0);
+      begin
+        Success := alutInitWithoutContext (Argcp'Address, Argv);
+      end;
+    end if;
     return Success;
   end Init_Without_Context;
 
