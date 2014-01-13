@@ -135,31 +135,24 @@ package Oto.ALC is
     ( ADevice: in Device;
       Attr_List: in Pointer
     ) return Context;
-  Pragma Import (StdCall, Create_Context, "alcCreateContext");
 --ALC_API ALCcontext *    ALC_APIENTRY alcCreateContext( ALCdevice *device, const ALCint* attrlist );
 
   function Make_Context_Current (AContext: in Context) return Bool;
-  Pragma Import (StdCall, Make_Context_Current, "alcMakeContextCurrent");
 --ALC_API ALCboolean      ALC_APIENTRY alcMakeContextCurrent( ALCcontext *context );
 
   procedure Process_Context (AContext: in Context);
-  Pragma Import (StdCall, Process_Context, "alcProcessContext");
 --ALC_API void            ALC_APIENTRY alcProcessContext( ALCcontext *context );
 
   procedure Suspend_Context (AContext: in Context);
-  Pragma Import (StdCall, Suspend_Context, "alcSuspendContext");
 --ALC_API void            ALC_APIENTRY alcSuspendContext( ALCcontext *context );
 
   procedure Destroy_Context (AContext: in Context);
-  Pragma Import (StdCall, Destroy_Context, "alcDestroyContext");
 --ALC_API void            ALC_APIENTRY alcDestroyContext( ALCcontext *context );
 
   function Get_Current_Context return Context;
-  Pragma Import (StdCall, Get_Current_Context, "alcGetCurrentContext");
 --ALC_API ALCcontext *    ALC_APIENTRY alcGetCurrentContext( void );
 
   function Get_Contexts_Device (AContext: in Context) return Device;
-  Pragma Import (StdCall, Get_Contexts_Device, "alcGetContextsDevice");
 --ALC_API ALCdevice*      ALC_APIENTRY alcGetContextsDevice( ALCcontext *context );
 
   -- Device Management
@@ -167,12 +160,10 @@ package Oto.ALC is
   Pragma Inline (Open_Device);
 
   function Close_Device (ADevice: in Device) return Bool;
-  Pragma Import (StdCall, Close_Device, "alcCloseDevice");
 
   -- Error support.
   -- Obtain the most recent Context error
   function Get_Error (ADevice: in Device) return Enum;
-  Pragma Import (StdCall, Get_Error, "alcGetError");
 
   -- Extension support.
   -- Query for the presence of an extension, and obtain any appropriate
@@ -205,7 +196,6 @@ package Oto.ALC is
       Size: in SizeI;
       Data: in Pointer
     );
-  Pragma Import (StdCall, Get_Integer, "alcGetIntegerv");
 
   -- Capture functions
   function Capture_Open_Device
@@ -217,19 +207,42 @@ package Oto.ALC is
   Pragma Inline (Capture_Open_Device);
 
   function Capture_Close_Device (ADevice: in Device) return Bool;
-  Pragma Import (StdCall, Capture_Close_Device, "alcCaptureCloseDevice");
 
   procedure Capture_Start (ADevice: in Device);
-  Pragma Import (StdCall, Capture_Start, "alcCaptureStart");
 
   procedure Capture_Stop (ADevice: in Device);
-  Pragma Import (StdCall, Capture_Stop, "alcCaptureStop");
 
   procedure Capture_Samples
     ( ADevice: in Device;
       Buffer: in Pointer;
       Samples: in SizeI
     );
+
+  ---------------------------------------------------------------------------
+
+private
+
+  ---------------------------------------------------------------------------
+
+                            -------------------
+                            -- I M P O R T S --
+                            -------------------
+
+  ---------------------------------------------------------------------------
+
+  Pragma Import (StdCall, Create_Context, "alcCreateContext");
+  Pragma Import (StdCall, Make_Context_Current, "alcMakeContextCurrent");
+  Pragma Import (StdCall, Process_Context, "alcProcessContext");
+  Pragma Import (StdCall, Suspend_Context, "alcSuspendContext");
+  Pragma Import (StdCall, Destroy_Context, "alcDestroyContext");
+  Pragma Import (StdCall, Get_Current_Context, "alcGetCurrentContext");
+  Pragma Import (StdCall, Get_Contexts_Device, "alcGetContextsDevice");
+  Pragma Import (StdCall, Close_Device, "alcCloseDevice");
+  Pragma Import (StdCall, Get_Error, "alcGetError");
+  Pragma Import (StdCall, Get_Integer, "alcGetIntegerv");
+  Pragma Import (StdCall, Capture_Close_Device, "alcCaptureCloseDevice");
+  Pragma Import (StdCall, Capture_Start, "alcCaptureStart");
+  Pragma Import (StdCall, Capture_Stop, "alcCaptureStop");
   Pragma Import (StdCall, Capture_Samples, "alcCaptureSamples");
 
   ---------------------------------------------------------------------------
