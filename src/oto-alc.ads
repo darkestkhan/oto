@@ -57,4 +57,71 @@ package Oto.ALC is
 
   ---------------------------------------------------------------------------
 
+                          -----------------------
+                          -- C O N S T A N T S --
+                          -----------------------
+
+  ---------------------------------------------------------------------------
+  -- Bool constants.
+  ALC_FALSE                                : constant Bool := 0;
+  ALC_TRUE                                 : constant Bool := 1;
+
+  -- Followed by <Int> Hz
+  ALC_FREQUENCY                            : constant Enum := 16#1007#;
+
+  -- Followed by <Int> Hz
+  ALC_REFRESH                              : constant Enum := 16#1008#;
+
+  -- Followed by AL_TRUE, AL_FALSE
+  ALC_SYNC                                 : constant Enum := 16#1009#;
+
+  -- Followed by <Int> Num of requested Mono (3D) Sources
+  ALC_MONO_SOURCES                         : constant Enum := 16#1010#;
+
+  -- Followed by <Int> Num of requested Stereo Sources
+  ALC_STEREO_SOURCES                       : constant Enum := 16#1011#;
+
+  -- Errors
+  -- No error
+  ALC_NO_ERROR                             : constant Enum := 0;
+
+  -- No device
+  ALC_INVALID_DEVICE                       : constant Enum := 16#A001#;
+
+  -- Invalid context ID
+  ALC_INVALID_CONTEXT                      : constant Enum := 16#A002#;
+
+  -- Bad enum
+  ALC_INVALID_ENUM                         : constant Enum := 16#A003#;
+
+  -- Bad value
+  ALC_INVALID_VALUE                        : constant Enum := 16#A004#;
+
+  -- Out of memory.
+  ALC_OUT_OF_MEMORY                        : constant Enum := 16#A005#;
+
+  -- The Specifier string for default device
+  ALC_DEFAULT_DEVICE_SPECIFIER             : constant Enum := 16#1004#;
+  ALC_DEVICE_SPECIFIER                     : constant Enum := 16#1005#;
+  ALC_EXTENSIONS                           : constant Enum := 16#1006#;
+
+  ALC_MAJOR_VERSION                        : constant Enum := 16#1000#;
+  ALC_MINOR_VERSION                        : constant Enum := 16#1001#;
+
+  ALC_ATTRIBUTES_SIZE                      : constant Enum := 16#1002#;
+  ALC_ALL_ATTRIBUTES                       : constant Enum := 16#1003#;
+
+  -- Capture extension
+  ALC_EXT_CAPTURE                          : constant Enum := 1;
+  ALC_CAPTURE_DEVICE_SPECIFIER             : constant Enum := 16#310#;
+  ALC_CAPTURE_DEFAULT_DEVICE_SPECIFIER     : constant Enum := 16#311#;
+  ALC_CAPTURE_SAMPLES                      : constant Enum := 16#312#;
+
+  -- ALC_ENUMERATE_ALL_EXT enums
+  ALC_ENUMERATE_ALL_EXT                    : constant Enum := 1;
+  ALC_DEFAULT_ALL_DEVICES_SPECIFIER        : constant Enum := 16#1012#;
+  ALC_ALL_DEVICES_SPECIFIER                : constant Enum := 16#1013#;
+
+  ---------------------------------------------------------------------------
+
 end OTO.ALC;
