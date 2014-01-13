@@ -7,6 +7,9 @@ is in AUTHORS file.
 Use gprbuild for building. Gnatmake may work but is not supported (and is
 deprecated).
 
+When linking against Oto don't forget to add "-lalut" and "-lopenal" to your's
+linker switches.
+
 ------------------------------------------------------------------------------
 --                    Copyright © 2014 darkestkhan                          --
 ------------------------------------------------------------------------------
