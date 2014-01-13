@@ -102,7 +102,7 @@ package Oto.ALUT is
                         ---------------------------
 
   ---------------------------------------------------------------------------
-  -- Init function are not tested - Constraint_Error is possible.
+  -- NOTE: Init functions are not tested - Constraint_Error is possible.
   function Init (Arguments: in String_Array) return AL.Bool;
   Pragma Inline (Init);
 
