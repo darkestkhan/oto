@@ -43,7 +43,7 @@ package Oto.AL is
 
   subtype Bool    is Binary.Byte;
   subtype Byte    is Binary.S_Byte;
-  subtype Chat    is Binary.Byte;
+  subtype Char    is Binary.Byte;
   subtype Double  is Long_Float;
   subtype Enum    is Binary.S_Word;
   subtype Int     is Integer;
