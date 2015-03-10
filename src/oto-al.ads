@@ -217,24 +217,28 @@ package Oto.AL is
   AL_PENDING                                : constant Enum := 16#2011#;
   AL_PROCESSED                              : constant Enum := 16#2012#;
 
+  ---------------------------------------------------------------------------
+
+                            -----------------
+                            -- E R R O R S --
+                            -----------------
+
+  ---------------------------------------------------------------------------
+
   -- Errors: No Error.
   AL_NO_ERROR                               : constant Enum := 0;
-
   -- Invalid Name paramater passed to AL call.
   AL_INVALID_NAME                           : constant Enum := 16#A001#;
-
   -- Invalid parameter passed to AL call.
   AL_INVALID_ENUM                           : constant Enum := 16#A002#;
-
   -- Invalid enum parameter value.
   AL_INVALID_VALUE                          : constant Enum := 16#A003#;
-
   -- Illegal call.
   AL_INVALID_OPERATION                      : constant Enum := 16#A004#;
-
-  
   -- No mojo.
   AL_OUT_OF_MEMORY                          : constant Enum := 16#A005#;
+
+  ---------------------------------------------------------------------------
 
   -- Context strings: Vendor Name.
   AL_VENDOR                                 : constant Enum := 16#B001#;
