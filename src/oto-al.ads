@@ -72,12 +72,12 @@ package Oto.AL is
   AL_SOURCE_RELATIVE                        : constant Enum := 16#202#;
 
   -- Directional source, inner cone angle, in degrees.
-  -- Range:    [0-360] 
+  -- Range:    [0-360]
   -- Default:  360
   AL_CONE_INNER_ANGLE                       : constant Enum := 16#1001#;
 
   -- Directional source, outer cone angle, in degrees.
-  -- Range:    [0-360] 
+  -- Range:    [0-360]
   -- Default:  360
   AL_CONE_OUTER_ANGLE                       : constant Enum := 16#1002#;
 
@@ -88,9 +88,9 @@ package Oto.AL is
 
   -- Specify the current location in three dimensional space.
   -- OpenAL, like OpenGL, uses a right handed coordinate system,
-  --  where in a frontal default view X (thumb) points right, 
+  --  where in a frontal default view X (thumb) points right,
   --  Y points up (index finger), and Z points towards the
-  --  viewer/camera (middle finger). 
+  --  viewer/camera (middle finger).
   -- To switch from a left handed coordinate system, flip the
   --  sign on the Z coordinate.
   -- Listener position is always in the world coordinate system.
@@ -108,12 +108,12 @@ package Oto.AL is
   -- Default: FALSE.
   AL_LOOPING                                : constant Enum := 16#1007#;
 
-  -- Indicate the buffer to provide sound samples. 
+  -- Indicate the buffer to provide sound samples.
   -- Type: ALuint.
   -- Range: any valid Buffer id.
   AL_BUFFER                                 : constant Enum := 16#1009#;
 
-  -- Indicate the gain (volume amplification) applied. 
+  -- Indicate the gain (volume amplification) applied.
   -- Type:  Float.
   -- Range:  ]0.0-  ]
   -- A value of 1.0 means un-attenuated/unchanged.
@@ -140,7 +140,7 @@ package Oto.AL is
 
   -- Indicate listener orientation.
   --
-  -- at/up 
+  -- at/up
   AL_ORIENTATION                            : constant Enum := 16#100F#;
 
   -- Source state information.
@@ -161,7 +161,8 @@ package Oto.AL is
 
   -- Source type (Static, Streaming or undetermined)
   -- Source is Static if a Buffer has been attached using AL_BUFFER
-  -- Source is Streaming if one or more Buffers have been attached using alSourceQueueBuffers
+  -- Source is Streaming if one or more Buffers have been attached using
+  --  alSourceQueueBuffers
   -- Source is undetermined when it has the NULL buffer attached
   AL_SOURCE_TYPE                            : constant Enum := 16#1027#;
   AL_STATIC                                 : constant Enum := 16#1028#;
@@ -284,27 +285,27 @@ package Oto.AL is
 
   -- State retrieval
   function Get_String (Param: in Enum) return String;
-  Pragma Inline (Get_String);
+  pragma Inline (Get_String);
 
   procedure Get_Boolean (Param: in Enum; Data: in Pointer);
 
   function Get_Boolean (Param: in Enum) return Bool;
-  Pragma Inline (Get_Boolean);
+  pragma Inline (Get_Boolean);
 
   procedure Get_Integer (Param: in Enum; Data: in Pointer);
 
   function Get_Integer (Param: in Enum) return Int;
-  Pragma Inline (Get_Integer);
+  pragma Inline (Get_Integer);
 
   procedure Get_Float (Param: in Enum; Data: in Pointer);
 
   function Get_Float (Param: in Enum) return Float;
-  Pragma Inline (Get_Float);
+  pragma Inline (Get_Float);
 
   procedure Get_Double (Param: in Enum; Data: in Pointer);
 
   function Get_Double (Param: in Enum) return Double;
-  Pragma Inline (Get_Double);
+  pragma Inline (Get_Double);
 
   -- Error support.
   -- Obtain the most recent error generated in the AL state machine.
@@ -314,26 +315,26 @@ package Oto.AL is
   -- Query for the presence of an extension, and obtain any appropriate
   -- function pointers and enum values.
   function Is_Extension_Present (Ext_Name: in String) return Bool;
-  Pragma Inline (Is_Extension_Present);
+  pragma Inline (Is_Extension_Present);
 
   function Get_Proc_Address (FName: in String) return Pointer;
-  Pragma Inline (Get_Proc_Address);
+  pragma Inline (Get_Proc_Address);
 
   function Get_Enum_Value (EName: in String) return Enum;
-  Pragma Inline (Get_Enum_Value);
+  pragma Inline (Get_Enum_Value);
 
- -- LISTENER
- -- Listener represents the location and orientation of the
- -- 'user' in 3D-space.
- --
- -- Properties include: -
- --
- -- Gain         AL_GAIN         Float
- -- Position     AL_POSITION     Float[3]
- -- Velocity     AL_VELOCITY     Float[3]
- -- Orientation  AL_ORIENTATION  Float[6] (Forward then Up vectors)
+  -- LISTENER
+  -- Listener represents the location and orientation of the
+  -- 'user' in 3D-space.
+  --
+  -- Properties include: -
+  --
+  -- Gain         AL_GAIN         Float
+  -- Position     AL_POSITION     Float[3]
+  -- Velocity     AL_VELOCITY     Float[3]
+  -- Orientation  AL_ORIENTATION  Float[6] (Forward then Up vectors)
 
- -- Set Listener parameters
+  -- Set Listener parameters
   procedure Listener (Param: in Enum; Value: in Float);
 
   procedure Listener
@@ -351,13 +352,13 @@ package Oto.AL is
       Value2: in Int;
       Value3: in Int
     );
-  Pragma Inline (Listener);
+  pragma Inline (Listener);
 
   procedure Listener_FV (Param: in Enum; Values: in Pointer);
 
   procedure Listener_IV (Param: in Enum; Values: in Pointer);
 
- -- Get Listener parameters
+  -- Get Listener parameters
   procedure Get_Listener_F (Param: in Enum; Value: in Pointer);
 
   procedure Get_Listener_3F
@@ -388,28 +389,28 @@ package Oto.AL is
   --
   -- Properties include: -
   --
-  -- Gain                              AL_GAIN                 Float
-  -- Min Gain                          AL_MIN_GAIN             Float
-  -- Max Gain                          AL_MAX_GAIN             Float
-  -- Position                          AL_POSITION             Float[3]
-  -- Velocity                          AL_VELOCITY             Float[3]
-  -- Direction                         AL_DIRECTION            Float[3]
-  -- Head Relative Mode                AL_SOURCE_RELATIVE      Int (AL_TRUE or AL_FALSE)
-  -- Reference Distance                AL_REFERENCE_DISTANCE   Float
-  -- Max Distance                      AL_MAX_DISTANCE         Float
-  -- RollOff Factor                    AL_ROLLOFF_FACTOR       Float
-  -- Inner Angle                       AL_CONE_INNER_ANGLE     Int or Float
-  -- Outer Angle                       AL_CONE_OUTER_ANGLE     Int or Float
-  -- Cone Outer Gain                   AL_CONE_OUTER_GAIN      Int or Float
-  -- Pitch                             AL_PITCH                Float
-  -- Looping                           AL_LOOPING              Bool (AL_TRUE or AL_FALSE)
-  -- MS Offset                         AL_MSEC_OFFSET          Int or Float
-  -- Byte Offset                       AL_BYTE_OFFSET          Int or Float
-  -- Sample Offset                     AL_SAMPLE_OFFSET        Int or Float
-  -- Attached Buffer                   AL_BUFFER               Int
-  -- State (Query only)                AL_SOURCE_STATE         Int
-  -- Buffers Queued (Query only)       AL_BUFFERS_QUEUED       Int
-  -- Buffers Processed (Query only)    AL_BUFFERS_PROCESSED    Int
+  -- Gain                     AL_GAIN                 Float
+  -- Min Gain                 AL_MIN_GAIN             Float
+  -- Max Gain                 AL_MAX_GAIN             Float
+  -- Position                 AL_POSITION             Float[3]
+  -- Velocity                 AL_VELOCITY             Float[3]
+  -- Direction                AL_DIRECTION            Float[3]
+  -- Head Relative Mode       AL_SOURCE_RELATIVE      Int (AL_TRUE or AL_FALSE)
+  -- Reference Distance       AL_REFERENCE_DISTANCE   Float
+  -- Max Distance             AL_MAX_DISTANCE         Float
+  -- RollOff Factor           AL_ROLLOFF_FACTOR       Float
+  -- Inner Angle              AL_CONE_INNER_ANGLE     Int or Float
+  -- Outer Angle              AL_CONE_OUTER_ANGLE     Int or Float
+  -- Cone Outer Gain          AL_CONE_OUTER_GAIN      Int or Float
+  -- Pitch                    AL_PITCH                Float
+  -- Looping                  AL_LOOPING              Bool (AL_TRUE or AL_FALSE)
+  -- MS Offset                AL_MSEC_OFFSET          Int or Float
+  -- Byte Offset              AL_BYTE_OFFSET          Int or Float
+  -- Sample Offset            AL_SAMPLE_OFFSET        Int or Float
+  -- Attached Buffer          AL_BUFFER               Int
+  -- State (Query only)       AL_SOURCE_STATE         Int
+  -- Buffers Queued (Query only)    AL_BUFFERS_QUEUED       Int
+  -- Buffers Processed (Query only) AL_BUFFERS_PROCESSED    Int
 
   -- Create Source objects
   procedure Gen_Sources (N: in SizeI; Sources: in Pointer);
@@ -440,13 +441,13 @@ package Oto.AL is
       Value2: in Int;
       Value3: in Int
     );
-  Pragma Inline (Source);
+  pragma Inline (Source);
 
   procedure Source_FV (SID: in UInt; Param: in Enum; Values: in Pointer);
 
   procedure Source_IV (SID: in UInt; Param: in Enum; Values: in Pointer);
 
- -- Get Source parameters
+  -- Get Source parameters
   procedure Get_Source_F (SID: in UInt; Param: in Enum; Value: in Pointer);
 
   procedure Get_Source_3F
@@ -477,27 +478,27 @@ package Oto.AL is
   procedure Source_Play (NS: in SizeI; SIDs: in Pointer);
 
   procedure Source_Play (SID: in UInt);
-  Pragma Inline (Source_Play);
+  pragma Inline (Source_Play);
 
   -- Stop a Source (or list of them)
   procedure Source_Stop (NS: in SizeI; SIDs: in Pointer);
 
   procedure Source_Stop (SID: in UInt);
-  Pragma Inline (Source_Stop);
+  pragma Inline (Source_Stop);
 
   -- Rewind a Source (or list of them)
   procedure Source_Rewind (NS: in SizeI; SIDs: in Pointer);
 
   procedure Source_Rewind (SID: in UInt);
-  Pragma Inline (Source_Rewind);
+  pragma Inline (Source_Rewind);
 
   -- Pause a Source (or list of them)
   procedure Source_Pause (NS: in SizeI; SIds: in Pointer);
 
   procedure Source_Pause (SID: in UInt);
-  Pragma Inline (Source_Pause);
+  pragma Inline (Source_Pause);
 
-  -- Source Queuing 
+  -- Source Queuing
   procedure Source_Queue_Buffers
     ( SID: in UInt;
       Num_Entries: in SizeI;
@@ -560,7 +561,7 @@ package Oto.AL is
       Value2: in Int;
       Value3: in Int
     );
-  Pragma Inline (Buffer);
+  pragma Inline (Buffer);
 
   procedure Buffer_FV (BID: in UInt; Param: in Enum; Values: in Pointer);
 
@@ -616,47 +617,47 @@ private
 
   ---------------------------------------------------------------------------
 
-  Pragma Import (StdCall, Enable, "alEnable");
-  Pragma Import (StdCall, Disable, "alDisable");
-  Pragma Import (StdCall, Is_Enabled, "alIsEnabled");
-  Pragma Import (StdCall, Get_Error, "alGetError");
-  Pragma Import (StdCall, Listener_FV, "alListenerfv");
-  Pragma Import (StdCall, Listener_IV, "alListeneriv");
-  Pragma Import (StdCall, Get_Listener_F, "alGetListenerf");
-  Pragma Import (StdCall, Get_Listener_3F, "alGetListener3f");
-  Pragma Import (StdCall, Get_Listener_FV, "alGetListenerfv");
-  Pragma Import (StdCall, Get_Listener_I, "alGetListeneri");
-  Pragma Import (StdCall, Get_Listener_3I, "alGetListener3i");
-  Pragma Import (StdCall, Get_Listener_IV, "alGetListeneriv");
-  Pragma Import (StdCall, Gen_Sources, "alGenSources");
-  Pragma Import (StdCall, Delete_Sources, "alDeleteSources");
-  Pragma Import (StdCall, Is_Source, "alIsSource");
-  Pragma Import (StdCall, Source_FV, "alSourcefv");
-  Pragma Import (StdCall, Source_IV, "alSourceiv");
-  Pragma Import (StdCall, Get_Source_F, "alGetSourcef");
-  Pragma Import (StdCall, Get_Source_3F, "alGetSource3f");
-  Pragma Import (StdCall, Get_Source_FV, "alGetSourcefv");
-  Pragma Import (StdCall, Get_Source_I, "alGetSourcei");
-  Pragma Import (StdCall, Get_Source_3I, "alGetSource3i");
-  Pragma Import (StdCall, Get_Source_IV, "alGetSourceiv");
-  Pragma Import (StdCall, Source_Queue_Buffers, "alSourceQueueBuffers");
-  Pragma Import (StdCall, Source_Unqueue_Buffers, "alSourceUnqueueBuffers");
-  Pragma Import (StdCall, Gen_Buffers, "alGenBuffers");
-  Pragma Import (StdCall, Delete_Buffers, "alDeleteBuffers");
-  Pragma Import (StdCall, Is_Buffer, "alIsBuffer");
-  Pragma Import (StdCall, Buffer_Data, "alBufferData");
-  Pragma Import (StdCall, Buffer_FV, "alBufferfv");
-  Pragma Import (StdCall, Buffer_IV, "alBufferiv");
-  Pragma Import (StdCall, Get_Buffer_F, "alGetBufferf");
-  Pragma Import (StdCall, Get_Buffer_3F, "alGetBuffer3f");
-  Pragma Import (StdCall, Get_Buffer_FV, "alGetBufferfv");
-  Pragma Import (StdCall, Get_Buffer_I, "alGetBufferi");
-  Pragma Import (StdCall, Get_Buffer_3I, "alGetBuffer3i");
-  Pragma Import (StdCall, Get_Buffer_IV, "alGetBufferiv");
-  Pragma Import (StdCall, Doppler_Factor, "alDopplerFactor");
-  Pragma Import (StdCall, Doppler_Velocity, "alDopplerVelocity");
-  Pragma Import (StdCall, Speed_Of_Sound, "alSpeedOfSound");
-  Pragma Import (StdCall, Distance_Model, "alDistanceModel");
+  pragma Import (StdCall, Enable, "alEnable");
+  pragma Import (StdCall, Disable, "alDisable");
+  pragma Import (StdCall, Is_Enabled, "alIsEnabled");
+  pragma Import (StdCall, Get_Error, "alGetError");
+  pragma Import (StdCall, Listener_FV, "alListenerfv");
+  pragma Import (StdCall, Listener_IV, "alListeneriv");
+  pragma Import (StdCall, Get_Listener_F, "alGetListenerf");
+  pragma Import (StdCall, Get_Listener_3F, "alGetListener3f");
+  pragma Import (StdCall, Get_Listener_FV, "alGetListenerfv");
+  pragma Import (StdCall, Get_Listener_I, "alGetListeneri");
+  pragma Import (StdCall, Get_Listener_3I, "alGetListener3i");
+  pragma Import (StdCall, Get_Listener_IV, "alGetListeneriv");
+  pragma Import (StdCall, Gen_Sources, "alGenSources");
+  pragma Import (StdCall, Delete_Sources, "alDeleteSources");
+  pragma Import (StdCall, Is_Source, "alIsSource");
+  pragma Import (StdCall, Source_FV, "alSourcefv");
+  pragma Import (StdCall, Source_IV, "alSourceiv");
+  pragma Import (StdCall, Get_Source_F, "alGetSourcef");
+  pragma Import (StdCall, Get_Source_3F, "alGetSource3f");
+  pragma Import (StdCall, Get_Source_FV, "alGetSourcefv");
+  pragma Import (StdCall, Get_Source_I, "alGetSourcei");
+  pragma Import (StdCall, Get_Source_3I, "alGetSource3i");
+  pragma Import (StdCall, Get_Source_IV, "alGetSourceiv");
+  pragma Import (StdCall, Source_Queue_Buffers, "alSourceQueueBuffers");
+  pragma Import (StdCall, Source_Unqueue_Buffers, "alSourceUnqueueBuffers");
+  pragma Import (StdCall, Gen_Buffers, "alGenBuffers");
+  pragma Import (StdCall, Delete_Buffers, "alDeleteBuffers");
+  pragma Import (StdCall, Is_Buffer, "alIsBuffer");
+  pragma Import (StdCall, Buffer_Data, "alBufferData");
+  pragma Import (StdCall, Buffer_FV, "alBufferfv");
+  pragma Import (StdCall, Buffer_IV, "alBufferiv");
+  pragma Import (StdCall, Get_Buffer_F, "alGetBufferf");
+  pragma Import (StdCall, Get_Buffer_3F, "alGetBuffer3f");
+  pragma Import (StdCall, Get_Buffer_FV, "alGetBufferfv");
+  pragma Import (StdCall, Get_Buffer_I, "alGetBufferi");
+  pragma Import (StdCall, Get_Buffer_3I, "alGetBuffer3i");
+  pragma Import (StdCall, Get_Buffer_IV, "alGetBufferiv");
+  pragma Import (StdCall, Doppler_Factor, "alDopplerFactor");
+  pragma Import (StdCall, Doppler_Velocity, "alDopplerVelocity");
+  pragma Import (StdCall, Speed_Of_Sound, "alSpeedOfSound");
+  pragma Import (StdCall, Distance_Model, "alDistanceModel");
 
   ---------------------------------------------------------------------------
 

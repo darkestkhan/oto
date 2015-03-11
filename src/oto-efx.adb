@@ -44,7 +44,7 @@ package body Oto.EFX is
         Param : in AL.Enum;
         Value : in AL.Int
       );
-    Pragma Import (StdCall, alEffecti, "alEffecti");
+    pragma Import (StdCall, alEffecti, "alEffecti");
   begin
     alEffecti (Effect, Param, Value);
   end Effect;
@@ -58,7 +58,7 @@ package body Oto.EFX is
         Param : in AL.Enum;
         Value : in Float
       );
-    Pragma Import (StdCall, alEffectf, "alEffectf");
+    pragma Import (StdCall, alEffectf, "alEffectf");
   begin
     alEffectf (Effect, Param, Value);
   end Effect;
@@ -72,7 +72,7 @@ package body Oto.EFX is
         Param : in AL.Enum;
         Value : in AL.Int
       );
-    Pragma Import (StdCall, alFilteri, "alFilteri");
+    pragma Import (StdCall, alFilteri, "alFilteri");
   begin
     alFilteri (Filter, Param, Value);
   end Filter;
@@ -86,7 +86,7 @@ package body Oto.EFX is
         Param : in AL.Enum;
         Value : in Float
       );
-    Pragma Import (StdCall, alFilterf, "alFilterf");
+    pragma Import (StdCall, alFilterf, "alFilterf");
   begin
     alFilterf (Filter, Param, Value);
   end Filter;
@@ -104,7 +104,7 @@ package body Oto.EFX is
         Param       : in AL.Enum;
         Value       : in AL.Int
       );
-    Pragma Import (StdCall, alAuxiliaryEffectSloti, "alAuxiliaryEffectSloti");
+    pragma Import (StdCall, alAuxiliaryEffectSloti, "alAuxiliaryEffectSloti");
   begin
     alAuxiliaryEffectSloti (Effect_Slot, Param, Value);
   end Auxiliary_Effect_Slot;
@@ -122,7 +122,7 @@ package body Oto.EFX is
         Param       : in AL.Enum;
         Value       : in Float
       );
-    Pragma Import (StdCall, alAuxiliaryEffectSlotf, "alAuxiliaryEffectSlotf");
+    pragma Import (StdCall, alAuxiliaryEffectSlotf, "alAuxiliaryEffectSlotf");
   begin
     alAuxiliaryEffectSlotf (Effect_Slot, Param, Value);
   end Auxiliary_Effect_Slot;

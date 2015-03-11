@@ -692,7 +692,6 @@ package Oto.EFX is
   AL_MAX_AUXILIARY_SEND_FILTER_GAINHF_AUTO : constant AL.Bool := AL.AL_TRUE;
   AL_DEFAULT_AUXILIARY_SEND_FILTER_GAINHF_AUTO : constant AL.Bool := AL.AL_TRUE;
 
-
   -- Listener parameter value ranges and defaults.
   -- AL_MIN_METERS_PER_UNIT value is taken from mysql/my_global.h:FLT_MIN
   AL_MIN_METERS_PER_UNIT           : constant Float := 1.40129846432481707e-45;
@@ -716,7 +715,7 @@ package Oto.EFX is
   procedure Effect (Effect: in AL.UInt; Param: in AL.Enum; Value: in AL.Int);
 
   procedure Effect (Effect: in AL.UInt; Param: in AL.Enum; Value: in Float);
-  Pragma Inline (Effect);
+  pragma Inline (Effect);
 
   procedure Effect_IV
     ( Effect: in AL.UInt;
@@ -763,7 +762,7 @@ package Oto.EFX is
   procedure Filter (Filter: in AL.UInt; Param: in AL.Enum; Value: in AL.Int);
 
   procedure Filter (Filter: in AL.UInt; Param: in AL.Enum; Value: in Float);
-  Pragma Inline (Filter);
+  pragma Inline (Filter);
 
   procedure Filter_IV
     ( Filter: in AL.UInt;
@@ -813,10 +812,18 @@ package Oto.EFX is
 
   function Is_Auxiliary_Effect_Slot (Effect_Slot: in AL.UInt) return AL.Bool;
 
-  procedure Auxiliary_Effect_Slot (Effect_Slot: in AL.UInt; Param: in AL.Enum; Value: in AL.Int);
+  procedure Auxiliary_Effect_Slot
+    ( Effect_Slot : in AL.UInt;
+      Param       : in AL.Enum;
+      Value       : in AL.Int
+    );
 
-  procedure Auxiliary_Effect_Slot (Effect_Slot: in AL.UInt; Param: in AL.Enum; Value: in Float);
-  Pragma Inline (Auxiliary_Effect_Slot);
+  procedure Auxiliary_Effect_Slot
+    ( Effect_Slot : in AL.UInt;
+      Param       : in AL.Enum;
+      Value       : in Float
+    );
+  pragma Inline (Auxiliary_Effect_Slot);
 
   procedure Auxiliary_Effect_Slot_IV
     ( Effect_Slot : in AL.UInt;
@@ -870,38 +877,38 @@ private
 
   ---------------------------------------------------------------------------
 
-  Pragma Import (StdCall, Gen_Effects, "alGenEffects");
-  Pragma Import (StdCall, Delete_Effects, "alDeleteEffects");
-  Pragma Import (StdCall, Is_Effect, "alIsEffect");
-  Pragma Import (StdCall, Effect_IV, "alEffectiv");
-  Pragma Import (StdCall, Effect_FV, "alEffectfv");
-  Pragma Import (StdCall, Get_Effect_I, "alGetEffecti");
-  Pragma Import (StdCall, Get_Effect_IV, "alGetEffectiv");
-  Pragma Import (StdCall, Get_Effect_F, "alGetEffectf");
-  Pragma Import (StdCall, Get_Effect_FV, "alGetEffectfv");
-  Pragma Import (StdCall, Gen_Filters, "alGenFilters");
-  Pragma Import (StdCall, Delete_Filters, "alDeleteFilters");
-  Pragma Import (StdCall, Is_Filter, "alIsFilter");
-  Pragma Import (StdCall, Filter_IV, "alFilteriv");
-  Pragma Import (StdCall, Filter_FV, "alFilterfv");
-  Pragma Import (StdCall, Get_Filter_I, "alGetFilteri");
-  Pragma Import (StdCall, Get_Filter_IV, "alGetFilteriv");
-  Pragma Import (StdCall, Get_Filter_F, "alGetFilterf");
-  Pragma Import (StdCall, Get_Filter_FV, "alGetFilterfv");
-  Pragma Import
+  pragma Import (StdCall, Gen_Effects, "alGenEffects");
+  pragma Import (StdCall, Delete_Effects, "alDeleteEffects");
+  pragma Import (StdCall, Is_Effect, "alIsEffect");
+  pragma Import (StdCall, Effect_IV, "alEffectiv");
+  pragma Import (StdCall, Effect_FV, "alEffectfv");
+  pragma Import (StdCall, Get_Effect_I, "alGetEffecti");
+  pragma Import (StdCall, Get_Effect_IV, "alGetEffectiv");
+  pragma Import (StdCall, Get_Effect_F, "alGetEffectf");
+  pragma Import (StdCall, Get_Effect_FV, "alGetEffectfv");
+  pragma Import (StdCall, Gen_Filters, "alGenFilters");
+  pragma Import (StdCall, Delete_Filters, "alDeleteFilters");
+  pragma Import (StdCall, Is_Filter, "alIsFilter");
+  pragma Import (StdCall, Filter_IV, "alFilteriv");
+  pragma Import (StdCall, Filter_FV, "alFilterfv");
+  pragma Import (StdCall, Get_Filter_I, "alGetFilteri");
+  pragma Import (StdCall, Get_Filter_IV, "alGetFilteriv");
+  pragma Import (StdCall, Get_Filter_F, "alGetFilterf");
+  pragma Import (StdCall, Get_Filter_FV, "alGetFilterfv");
+  pragma Import
     ( StdCall, Gen_Auxiliary_Effect_Slot, "alGenAuxiliaryEffectSlots" );
-  Pragma Import
+  pragma Import
     ( StdCall, Delete_Auxiliary_Effect_Slots, "alDeleteAuxiliaryEffectSlots" );
-  Pragma Import (StdCall, Is_Auxiliary_Effect_Slot, "alIsAuxiliaryEffectSlot");
-  Pragma Import (StdCall, Auxiliary_Effect_Slot_IV, "alAuxiliaryEffectSlotiv");
-  Pragma Import (StdCall, Auxiliary_Effect_Slot_FV, "alAuxiliaryEffectSlotfv");
-  Pragma Import
+  pragma Import (StdCall, Is_Auxiliary_Effect_Slot, "alIsAuxiliaryEffectSlot");
+  pragma Import (StdCall, Auxiliary_Effect_Slot_IV, "alAuxiliaryEffectSlotiv");
+  pragma Import (StdCall, Auxiliary_Effect_Slot_FV, "alAuxiliaryEffectSlotfv");
+  pragma Import
     ( StdCall, Get_Auxiliary_Effects_Slot_I, "alGetAuxiliaryEffectSloti" );
-  Pragma Import
+  pragma Import
     ( StdCall, Get_Auxiliary_Effect_Slot_IV, "alGetAuxiliaryEffectSlotiv" );
-  Pragma Import
+  pragma Import
     ( StdCall, Get_Auxiliary_Effect_Slot_F, "alGetAuxiliaryEffectSlotf" );
-  Pragma Import
+  pragma Import
     ( StdCall, Get_Auxiliary_Effect_Slot_FV, "alGetAuxiliaryEffectSlotfv" );
 
   ---------------------------------------------------------------------------

@@ -61,7 +61,7 @@ package Oto.ALUT is
 
   ---------------------------------------------------------------------------
 
-  Null_String_Array       : constant String_Array (1 .. 0) := (others => Null);
+  Null_String_Array       : constant String_Array (1 .. 0) := (others => null);
 
   ALUT_API_MAJOR_VERSION                 : constant AL.Enum := 1;
   ALUT_API_MINOR_VERSION                 : constant AL.Enum := 1;
@@ -104,10 +104,10 @@ package Oto.ALUT is
   ---------------------------------------------------------------------------
 
   function Init (Arguments: in String_Array) return AL.Bool;
-  Pragma Inline (Init);
+  pragma Inline (Init);
 
   function Init_Without_Context (Arguments: in String_Array) return AL.Bool;
-  Pragma Inline (Init_Without_Context);
+  pragma Inline (Init_Without_Context);
 
   -- alutExit is bound to Quit instead of Exit due to "exit" being Ada keyword.
   function Quit return AL.Bool;
@@ -115,10 +115,10 @@ package Oto.ALUT is
   function Get_Error return AL.Enum;
 
   function Get_Error_String (Error: in AL.Enum) return String;
-  Pragma Inline (Get_Error_String);
+  pragma Inline (Get_Error_String);
 
   function Create_Buffer_From_File (File_Name: in String) return AL.UInt;
-  Pragma Inline (Create_Buffer_From_File);
+  pragma Inline (Create_Buffer_From_File);
 
   function Create_Buffer_From_File_Image
     ( Data  : in AL.Pointer;
@@ -140,7 +140,7 @@ package Oto.ALUT is
       Size      : in AL.Pointer;
       Frequency : in AL.Pointer
     ) return AL.Pointer;
-  Pragma Inline (Load_Memory_From_File);
+  pragma Inline (Load_Memory_From_File);
 
   function Load_Memory_From_File_Image
     ( Data      : in AL.Pointer;
@@ -167,7 +167,7 @@ package Oto.ALUT is
     ) return AL.Pointer;
 
   function Get_MIME_Types (Loader: in AL.Enum) return String;
-  Pragma Inline (Get_MIME_Types);
+  pragma Inline (Get_MIME_Types);
 
   function Get_Major_Version return AL.Int;
 
@@ -187,21 +187,21 @@ private
 
   ---------------------------------------------------------------------------
 
-  Pragma Import (StdCall, Quit, "alutExit");
-  Pragma Import (StdCall, Get_Error, "alutGetError");
-  Pragma Import
+  pragma Import (StdCall, Quit, "alutExit");
+  pragma Import (StdCall, Get_Error, "alutGetError");
+  pragma Import
     ( StdCall, Create_Buffer_From_File_Image, "alutCreateBufferFromFileImage" );
-  Pragma Import
+  pragma Import
     ( StdCall, Create_Buffer_Hello_World, "alutCreateBufferHelloWorld" );
-  Pragma Import (StdCall, Create_Buffer_Waveform, "alutCreateBufferWaveform");
-  Pragma Import
+  pragma Import (StdCall, Create_Buffer_Waveform, "alutCreateBufferWaveform");
+  pragma Import
     ( StdCall, Load_Memory_From_File_Image, "alutLoadMemoryFromFileImage" );
-  Pragma Import (StdCall, Load_Memory_Hello_World, "alutLoadMemoryHelloWorld");
-  Pragma Import (StdCall, Load_Memory_Wave_Form, "alutLoadMemoryWaveform");
-  Pragma Import (StdCall, Get_Major_Version, "alutGetMajorVersion");
-  Pragma Import (StdCall, Get_Minor_Version, "alutGetMinorVersion");
-  Pragma Import (StdCall, Sleep, "alutSleep");
+  pragma Import (StdCall, Load_Memory_Hello_World, "alutLoadMemoryHelloWorld");
+  pragma Import (StdCall, Load_Memory_Wave_Form, "alutLoadMemoryWaveform");
+  pragma Import (StdCall, Get_Major_Version, "alutGetMajorVersion");
+  pragma Import (StdCall, Get_Minor_Version, "alutGetMinorVersion");
+  pragma Import (StdCall, Sleep, "alutSleep");
 
   ---------------------------------------------------------------------------
 
-end Oto.Alut;
+end Oto.ALUT;

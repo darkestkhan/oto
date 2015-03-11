@@ -35,7 +35,7 @@ package Oto.Binary is
 
   --------------------------------------------------------------------------
 
-  Pragma Pure;
+  pragma Pure;
 
   --------------------------------------------------------------------------
 
@@ -83,7 +83,7 @@ package Oto.Binary is
 
   --------------------------------------------------------------------------
   -- Signed types.
-  type S_Byte   is new Integer range -(2 ** Byte_LB)  .. (2 ** Byte_LB)  - 1; 
+  type S_Byte   is new Integer range -(2 ** Byte_LB)  .. (2 ** Byte_LB)  - 1;
   type S_Short  is new Integer range -(2 ** Short_LB) .. (2 ** Short_LB) - 1;
   type S_Word   is new Integer range -(2 ** Word_LB)  .. (2 ** Word_LB)  - 1;
   type S_Long   is new Long_Integer range -(2 ** Long_LB) .. (2 ** Long_LB) - 1;

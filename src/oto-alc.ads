@@ -150,7 +150,7 @@ package Oto.ALC is
 
   -- Device Management
   function Open_Device (Device_Name: in String) return Device;
-  Pragma Inline (Open_Device);
+  pragma Inline (Open_Device);
 
   function Close_Device (ADevice: in Device) return Bool;
 
@@ -165,23 +165,23 @@ package Oto.ALC is
     ( ADevice: in Device;
       Ext_Name: in String
     ) return Bool;
-  Pragma Inline (Is_Extension_Present);
+  pragma Inline (Is_Extension_Present);
 
   function Get_Proc_Address
     ( ADevice: in Device;
       Func_Name: in String
     ) return Pointer;
-  Pragma Inline (Get_Proc_Address);
+  pragma Inline (Get_Proc_Address);
 
   function Get_Enum_Value
     ( ADevice: in Device;
       Enum_Name: in String
     ) return Enum;
-  Pragma Inline (Get_Enum_Value);
+  pragma Inline (Get_Enum_Value);
 
   -- Query functions
   function Get_String (ADevice: in Device; Param: in Enum) return String;
-  Pragma Inline (Get_String);
+  pragma Inline (Get_String);
 
   procedure Get_Integer
     ( ADevice: in Device;
@@ -197,7 +197,7 @@ package Oto.ALC is
       Format: in Enum;
       Buffer_Size: in SizeI
     ) return Device;
-  Pragma Inline (Capture_Open_Device);
+  pragma Inline (Capture_Open_Device);
 
   function Capture_Close_Device (ADevice: in Device) return Bool;
 
@@ -227,20 +227,20 @@ private
 
   ---------------------------------------------------------------------------
 
-  Pragma Import (StdCall, Create_Context, "alcCreateContext");
-  Pragma Import (StdCall, Make_Context_Current, "alcMakeContextCurrent");
-  Pragma Import (StdCall, Process_Context, "alcProcessContext");
-  Pragma Import (StdCall, Suspend_Context, "alcSuspendContext");
-  Pragma Import (StdCall, Destroy_Context, "alcDestroyContext");
-  Pragma Import (StdCall, Get_Current_Context, "alcGetCurrentContext");
-  Pragma Import (StdCall, Get_Contexts_Device, "alcGetContextsDevice");
-  Pragma Import (StdCall, Close_Device, "alcCloseDevice");
-  Pragma Import (StdCall, Get_Error, "alcGetError");
-  Pragma Import (StdCall, Get_Integer, "alcGetIntegerv");
-  Pragma Import (StdCall, Capture_Close_Device, "alcCaptureCloseDevice");
-  Pragma Import (StdCall, Capture_Start, "alcCaptureStart");
-  Pragma Import (StdCall, Capture_Stop, "alcCaptureStop");
-  Pragma Import (StdCall, Capture_Samples, "alcCaptureSamples");
+  pragma Import (StdCall, Create_Context, "alcCreateContext");
+  pragma Import (StdCall, Make_Context_Current, "alcMakeContextCurrent");
+  pragma Import (StdCall, Process_Context, "alcProcessContext");
+  pragma Import (StdCall, Suspend_Context, "alcSuspendContext");
+  pragma Import (StdCall, Destroy_Context, "alcDestroyContext");
+  pragma Import (StdCall, Get_Current_Context, "alcGetCurrentContext");
+  pragma Import (StdCall, Get_Contexts_Device, "alcGetContextsDevice");
+  pragma Import (StdCall, Close_Device, "alcCloseDevice");
+  pragma Import (StdCall, Get_Error, "alcGetError");
+  pragma Import (StdCall, Get_Integer, "alcGetIntegerv");
+  pragma Import (StdCall, Capture_Close_Device, "alcCaptureCloseDevice");
+  pragma Import (StdCall, Capture_Start, "alcCaptureStart");
+  pragma Import (StdCall, Capture_Stop, "alcCaptureStop");
+  pragma Import (StdCall, Capture_Samples, "alcCaptureSamples");
 
   ---------------------------------------------------------------------------
 

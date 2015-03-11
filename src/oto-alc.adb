@@ -65,7 +65,7 @@ package body Oto.ALC is
   function Open_Device (Device_Name: in String) return Device
   is
     function alcOpenDevice (Device_Name: in CStrings.chars_ptr) return Device;
-    Pragma Import (StdCall, alcOpenDevice, "alcOpenDevice");
+    pragma Import (StdCall, alcOpenDevice, "alcOpenDevice");
 
     CString: CStrings.char_array_access :=
       new IC.char_array'(IC.To_C (Device_Name));
@@ -86,9 +86,9 @@ package body Oto.ALC is
   is
     function alcIsExtensionPresent
       ( ADevice: in Device;
-        Ext_Name: in CStrings.chars_ptr 
+        Ext_Name: in CStrings.chars_ptr
       ) return Bool;
-    Pragma Import (StdCall, alcIsExtensionPresent, "alcIsExtensionPresent");
+    pragma Import (StdCall, alcIsExtensionPresent, "alcIsExtensionPresent");
 
     CString: CStrings.char_array_access :=
       new IC.char_array'(IC.To_C (Ext_Name));
@@ -111,7 +111,7 @@ package body Oto.ALC is
       ( ADevice: in Device;
         Func_Name: in CStrings.chars_ptr
       ) return Pointer;
-    Pragma Import (StdCall, alcGetProcAddress, "alcGetProcAddress");
+    pragma Import (StdCall, alcGetProcAddress, "alcGetProcAddress");
 
     CString: CStrings.char_array_access :=
       new IC.char_array'(IC.To_C (Func_Name));
@@ -134,7 +134,7 @@ package body Oto.ALC is
       ( ADevice: in Device;
         Enum_Name: in CStrings.chars_ptr
       ) return Enum;
-    Pragma Import (StdCall, alcGetEnumValue, "alcGetEnumValue");
+    pragma Import (StdCall, alcGetEnumValue, "alcGetEnumValue");
 
     CString: CStrings.char_array_access :=
       new IC.char_array'(IC.To_C (Enum_Name));
@@ -154,7 +154,7 @@ package body Oto.ALC is
       ( ADevice: in Device;
         Param: in Enum
       ) return CStrings.chars_ptr;
-    Pragma Import (StdCall, alcGetString, "alcGetString");
+    pragma Import (StdCall, alcGetString, "alcGetString");
   begin
     return IC.To_Ada (CStrings.Value (alcGetString (ADevice, Param)));
   end Get_String;
@@ -174,7 +174,7 @@ package body Oto.ALC is
         Format: in Enum;
         Buffer_Size: in SizeI
       ) return Device;
-    Pragma Import (StdCall, alcCaptureOpenDevice, "alcCaptureOpenDevice");
+    pragma Import (StdCall, alcCaptureOpenDevice, "alcCaptureOpenDevice");
 
     CString: CStrings.char_array_access :=
       new IC.char_array'(IC.To_C (Device_Name));
@@ -183,7 +183,7 @@ package body Oto.ALC is
   begin
     ADevice :=
       alcCaptureOpenDevice
-        ( CStrings.To_Chars_Ptr (CString), 
+        ( CStrings.To_Chars_Ptr (CString),
           Frequency,
           Format,
           Buffer_Size
