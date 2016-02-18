@@ -4,17 +4,19 @@ This library tries to be as close to original API as possible, while using
 Ada types whenever possible. It is under GMGPL license. Full list of authors
 is in AUTHORS file.
 
-Use gprbuild for building. Gnatmake may work but is not supported (and is
-deprecated).
+Use gprbuild for building (building with gnatmake is not tested).
+This projects depends on OpenAL and ALUT (on Debian-like operating system these
+dependencies can be satisfied by installing libopenal-dev and libalut-dev
+packages).
 
 When linking against Oto don't forget to add "-lalut" and "-lopenal" to your's
 linker switches.
 
 To build with different than default CPU switches add "-XCPU=switches" to
-gprbuild command. Defualt CPU switches are: "-m64 -mssse3 -march=native -fPIC"
+gprbuild command. Defualt CPU switches are: "-march=native -fPIC"
 
 ------------------------------------------------------------------------------
---                    Copyright © 2014 - 2015 darkestkhan                   --
+--                    Copyright © 2014 - 2016 darkestkhan                   --
 ------------------------------------------------------------------------------
 -- Permission to use, copy, modify, and/or distribute this software for any --
 -- purpose with or without fee is hereby granted, provided that the above   --
