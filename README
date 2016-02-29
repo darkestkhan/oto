@@ -1,7 +1,7 @@
 [Incomplete] Binding to OpenAL.
 
 This library tries to be as close to original API as possible, while using
-Ada types whenever possible. It is under GMGPL license. Full list of authors
+Ada types whenever possible. It is under ISC license. Full list of authors
 is in AUTHORS file.
 
 Use gprbuild for building (building with gnatmake is not tested).
