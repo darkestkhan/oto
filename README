@@ -1,4 +1,4 @@
-[Incomplete] Binding to OpenAL.
+Binding to OpenAL.
 
 This library tries to be as close to original API as possible, while using
 Ada types whenever possible. It is under ISC license. Full list of authors
