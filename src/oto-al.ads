@@ -2,7 +2,7 @@
 -- EMAIL: <darkestkhan@gmail.com>                                           --
 -- License: ISC                                                             --
 --                                                                          --
---                    Copyright © 2014 - 2015 darkestkhan                   --
+--                    Copyright © 2014 - 2016 darkestkhan                   --
 ------------------------------------------------------------------------------
 -- Permission to use, copy, modify, and/or distribute this software for any --
 -- purpose with or without fee is hereby granted, provided that the above   --
@@ -267,51 +267,67 @@ package Oto.AL is
 
   ---------------------------------------------------------------------------
   -- Renderer State management
-  procedure Enable (Capability: in Enum);
+  procedure Enable (Capability: in Enum)
+    with Import => True, Convention => StdCall, External_Name => "alEnable";
 
-  procedure Disable (Capability: in Enum);
+  procedure Disable (Capability: in Enum)
+    with Import => True, Convention => StdCall, External_Name => "alDisable";
 
-  function Is_Enabled (Capability: in Enum) return Bool;
+  function Is_Enabled (Capability: in Enum) return Bool
+    with Import => True, Convention => StdCall, External_Name => "alIsEnabled";
 
   -- State retrieval
-  function Get_String (Param: in Enum) return String;
-  pragma Inline (Get_String);
+  function Get_String (Param: in Enum) return String
+    with Inline => True;
 
-  procedure Get_Boolean (Param: in Enum; Data: in Pointer);
+  procedure Get_Boolean (Param: in Enum; Data: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetBooleanv";
 
-  function Get_Boolean (Param: in Enum) return Bool;
-  pragma Inline (Get_Boolean);
+  function Get_Boolean (Param: in Enum) return Bool
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetBoolean";
 
-  procedure Get_Integer (Param: in Enum; Data: in Pointer);
+  procedure Get_Integer (Param: in Enum; Data: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetIntegerv";
 
-  function Get_Integer (Param: in Enum) return Int;
-  pragma Inline (Get_Integer);
+  function Get_Integer (Param: in Enum) return Int
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetInteger";
 
-  procedure Get_Float (Param: in Enum; Data: in Pointer);
+  procedure Get_Float (Param: in Enum; Data: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetFloatv";
 
-  function Get_Float (Param: in Enum) return Float;
-  pragma Inline (Get_Float);
+  function Get_Float (Param: in Enum) return Float
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetFloat";
 
-  procedure Get_Double (Param: in Enum; Data: in Pointer);
+  procedure Get_Double (Param: in Enum; Data: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetDoublev";
 
-  function Get_Double (Param: in Enum) return Double;
-  pragma Inline (Get_Double);
+  function Get_Double (Param: in Enum) return Double
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetDouble";
 
   -- Error support.
   -- Obtain the most recent error generated in the AL state machine.
-  function Get_Error return Enum;
+  function Get_Error return Enum
+    with Import => True, Convention => StdCall, External_Name => "alGetError";
 
   -- Extension support.
   -- Query for the presence of an extension, and obtain any appropriate
   -- function pointers and enum values.
-  function Is_Extension_Present (Ext_Name: in String) return Bool;
-  pragma Inline (Is_Extension_Present);
+  function Is_Extension_Present (Ext_Name: in String) return Bool
+    with Inline => True;
 
-  function Get_Proc_Address (FName: in String) return Pointer;
-  pragma Inline (Get_Proc_Address);
+  function Get_Proc_Address (FName: in String) return Pointer
+    with Inline => True;
 
-  function Get_Enum_Value (EName: in String) return Enum;
-  pragma Inline (Get_Enum_Value);
+  function Get_Enum_Value (EName: in String) return Enum
+    with Inline => True;
 
   -- LISTENER
   -- Listener represents the location and orientation of the
@@ -325,51 +341,72 @@ package Oto.AL is
   -- Orientation  AL_ORIENTATION  Float[6] (Forward then Up vectors)
 
   -- Set Listener parameters
-  procedure Listener (Param: in Enum; Value: in Float);
+  procedure Listener (Param: in Enum; Value: in Float)
+    with Import => True, Convention => StdCall,
+         External_Name => "alListenerf";
 
   procedure Listener
     ( Param: in Enum;
       Value1: in Float;
       Value2: in Float;
       Value3: in Float
-    );
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alListener3f";
 
-  procedure Listener (Param: in Enum; Value: in Int);
+  procedure Listener (Param: in Enum; Value: in Int)
+    with Import => True, Convention => StdCall,
+         External_Name => "alListeneri";
 
   procedure Listener
     ( Param: in Enum;
       Value1: in Int;
       Value2: in Int;
       Value3: in Int
-    );
-  pragma Inline (Listener);
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alListener3i";
 
-  procedure Listener_FV (Param: in Enum; Values: in Pointer);
+  procedure Listener_FV (Param: in Enum; Values: in Pointer)
+    with Import => True, Convention => StdCall, External_Name => "alListenerfv";
 
-  procedure Listener_IV (Param: in Enum; Values: in Pointer);
+  procedure Listener_IV (Param: in Enum; Values: in Pointer)
+    with Import => True, Convention => StdCall, External_Name => "alListeneriv";
 
   -- Get Listener parameters
-  procedure Get_Listener_F (Param: in Enum; Value: in Pointer);
+  procedure Get_Listener_F (Param: in Enum; Value: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetListenerf";
 
   procedure Get_Listener_3F
     ( Param: in Enum;
       Value1: in Pointer;
       Value2: in Pointer;
       Value3: in Pointer
-    );
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetListener3f";
 
-  procedure Get_Listener_FV (Param: in Enum; Values: in Pointer);
+  procedure Get_Listener_FV (Param: in Enum; Values: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetListenerfv";
 
-  procedure Get_Listener_I (Param: in Enum; Value: in Pointer);
+  procedure Get_Listener_I (Param: in Enum; Value: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetListeneri";
 
   procedure Get_Listener_3I
     ( Param: in Enum;
       Value1: in Pointer;
       Value2: in Pointer;
       Value3: in Pointer
-    );
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetListener3i";
 
-  procedure Get_Listener_IV (Param: in Enum; Values: in Pointer);
+  procedure Get_Listener_IV (Param: in Enum; Values: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetListeneriv";
 
   -- SOURCE
   -- Sources represent individual sound objects in 3D-space.
@@ -403,16 +440,22 @@ package Oto.AL is
   -- Buffers Processed (Query only) AL_BUFFERS_PROCESSED    Int
 
   -- Create Source objects
-  procedure Gen_Sources (N: in SizeI; Sources: in Pointer);
+  procedure Gen_Sources (N: in SizeI; Sources: in Pointer)
+    with Import => True, Convention => StdCall, External_Name => "alGenSources";
 
   -- Delete Source objects
-  procedure Delete_Sources (N: in SizeI; Sources: in Pointer);
+  procedure Delete_Sources (N: in SizeI; Sources: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alDeleteSources";
 
   -- Verify a handle is a valid Source
-  function Is_Source (SID: in UInt) return Bool;
+  function Is_Source (SID: in UInt) return Bool
+    with Import => True, Convention => StdCall, External_Name => "alIsSource";
 
   -- Set Source parameters
-  procedure Source (SID: in UInt; Param: in Enum; Value: in Float);
+  procedure Source (SID: in UInt; Param: in Enum; Value: in Float)
+    with Import => True, Convention => StdCall,
+         External_Name => "alSourcef";
 
   procedure Source
     ( SID: in UInt;
@@ -420,9 +463,13 @@ package Oto.AL is
       Value1: in Float;
       Value2: in Float;
       Value3: in Float
-    );
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alSource3f";
 
-  procedure Source (SID: in UInt; Param: in Enum; Value: in Int);
+  procedure Source (SID: in UInt; Param: in Enum; Value: in Int)
+    with Import => True, Convention => StdCall,
+         External_Name => "alSourcei";
 
   procedure Source
     ( SID: in UInt;
@@ -430,15 +477,19 @@ package Oto.AL is
       Value1: in Int;
       Value2: in Int;
       Value3: in Int
-    );
-  pragma Inline (Source);
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alSource3i";
 
-  procedure Source_FV (SID: in UInt; Param: in Enum; Values: in Pointer);
+  procedure Source_FV (SID: in UInt; Param: in Enum; Values: in Pointer)
+    with Import => True, Convention => StdCall, External_Name => "alSourcefv";
 
-  procedure Source_IV (SID: in UInt; Param: in Enum; Values: in Pointer);
+  procedure Source_IV (SID: in UInt; Param: in Enum; Values: in Pointer)
+    with Import => True, Convention => StdCall, External_Name => "alSourceiv";
 
   -- Get Source parameters
-  procedure Get_Source_F (SID: in UInt; Param: in Enum; Value: in Pointer);
+  procedure Get_Source_F (SID: in UInt; Param: in Enum; Value: in Pointer)
+    with Import => True, Convention => StdCall, External_Name => "alGetSourcef";
 
   procedure Get_Source_3F
     ( SID: in UInt;
@@ -446,11 +497,16 @@ package Oto.AL is
       Value1: in Pointer;
       Value2: in Pointer;
       Value3: in Pointer
-    );
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetSource3f";
 
-  procedure Get_Source_FV (SID: in UInt; Param: in Enum; Values: in Pointer);
+  procedure Get_Source_FV (SID: in UInt; Param: in Enum; Values: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetSourcefv";
 
-  procedure Get_Source_I (SID: in UInt; Param: in Enum; Value: in Pointer);
+  procedure Get_Source_I (SID: in UInt; Param: in Enum; Value: in Pointer)
+    with Import => True, Convention => StdCall, External_Name => "alGetSourcei";
 
   procedure Get_Source_3I
     ( SID: in UInt;
@@ -458,48 +514,68 @@ package Oto.AL is
       Value1: in Pointer;
       Value2: in Pointer;
       Value3: in Pointer
-    );
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetSource3i";
 
-  procedure Get_Source_IV (SID: in UInt; Param: in Enum; Values: in Pointer);
+  procedure Get_Source_IV (SID: in UInt; Param: in Enum; Values: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetSourceiv";
 
   -- Source playback calls
 
   -- Play, replay, or resume (if paused) Source (or list of them)
-  procedure Source_Play (NS: in SizeI; SIDs: in Pointer);
+  procedure Source_Play (NS: in SizeI; SIDs: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alSourcePlayv";
 
-  procedure Source_Play (SID: in UInt);
-  pragma Inline (Source_Play);
+  procedure Source_Play (SID: in UInt)
+    with Import => True, Convention => StdCall,
+         External_Name => "alSourcePlay";
 
   -- Stop a Source (or list of them)
-  procedure Source_Stop (NS: in SizeI; SIDs: in Pointer);
+  procedure Source_Stop (NS: in SizeI; SIDs: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alSourceStopv";
 
-  procedure Source_Stop (SID: in UInt);
-  pragma Inline (Source_Stop);
+  procedure Source_Stop (SID: in UInt)
+    with Import => True, Convention => StdCall,
+         External_Name => "alSourceStop";
 
   -- Rewind a Source (or list of them)
-  procedure Source_Rewind (NS: in SizeI; SIDs: in Pointer);
+  procedure Source_Rewind (NS: in SizeI; SIDs: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alSourceRewindv";
 
-  procedure Source_Rewind (SID: in UInt);
-  pragma Inline (Source_Rewind);
+  procedure Source_Rewind (SID: in UInt)
+    with Import => True, Convention => StdCall,
+         External_Name => "alSourceRewind";
 
   -- Pause a Source (or list of them)
-  procedure Source_Pause (NS: in SizeI; SIds: in Pointer);
+  procedure Source_Pause (NS: in SizeI; SIds: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alSourcePausev";
 
-  procedure Source_Pause (SID: in UInt);
-  pragma Inline (Source_Pause);
+  procedure Source_Pause (SID: in UInt)
+    with Import => True, Convention => StdCall,
+         External_Name => "alSourcePause";
 
   -- Source Queuing
   procedure Source_Queue_Buffers
     ( SID: in UInt;
       Num_Entries: in SizeI;
       BIDs: in Pointer
-    );
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alSourceQueueBuffers";
 
   procedure Source_Unqueue_Buffers
     ( SID: in UInt;
       Num_Entries: in SizeI;
       BIDs: in Pointer
-    );
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alSourceUnqueueBuffers";
 
   -- BUFFER
   -- Buffer objects are storage space for sample data.
@@ -514,13 +590,18 @@ package Oto.AL is
   -- Channels (Query only)     AL_CHANNELS       Int
 
   -- Create Buffer objects
-  procedure Gen_Buffers (N: in SizeI; Buffers: in Pointer);
+  procedure Gen_Buffers (N: in SizeI; Buffers: in Pointer)
+    with Import => True, Convention => StdCall, External_Name => "alGenBuffers";
 
   -- Delete Buffer objects
-  procedure Delete_Buffers (N: in SizeI; Buffers: in Pointer);
+  procedure Delete_Buffers (N: in SizeI; Buffers: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alDeleteBuffers";
 
   -- Verify a handle is a valid Buffer
-  function Is_Buffer (BID: in UInt) return Bool;
+  function Is_Buffer (BID: in UInt) return Bool
+    with Import => True, Convention => StdCall,
+         External_Name => "alIsBuffer";
 
   -- Specify the data to be copied into a buffer
   procedure Buffer_Data
@@ -529,10 +610,13 @@ package Oto.AL is
       Data: in Pointer;
       Size: in SizeI;
       Freq: in SizeI
-    );
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alBufferData";
 
   -- Set Buffer parameters
-  procedure Buffer (BID: in UInt; Param: in Enum; Value: in Float);
+  procedure Buffer (BID: in UInt; Param: in Enum; Value: in Float)
+    with Import => True, Convention => StdCall, External_Name => "alBufferf";
 
   procedure Buffer
     ( BID: in UInt;
@@ -540,9 +624,11 @@ package Oto.AL is
       Value1: in Float;
       Value2: in Float;
       Value3: in Float
-    );
+    )
+    with Import => True, Convention => StdCall, External_Name => "alBuffer3f";
 
-  procedure Buffer (BID: in UInt; Param: in Enum; Value: in Int);
+  procedure Buffer (BID: in UInt; Param: in Enum; Value: in Int)
+    with Import => True, Convention => StdCall, External_Name => "alBufferi";
 
   procedure Buffer
     ( BID: in UInt;
@@ -550,15 +636,18 @@ package Oto.AL is
       Value1: in Int;
       Value2: in Int;
       Value3: in Int
-    );
-  pragma Inline (Buffer);
+    )
+    with Import => True, Convention => StdCall, External_Name => "alBuffer3i";
 
-  procedure Buffer_FV (BID: in UInt; Param: in Enum; Values: in Pointer);
+  procedure Buffer_FV (BID: in UInt; Param: in Enum; Values: in Pointer)
+    with Import => True, Convention => StdCall, External_Name => "alBufferfv";
 
-  procedure Buffer_IV (BID: in UInt; Param: in Enum; Values: in Pointer);
+  procedure Buffer_IV (BID: in UInt; Param: in Enum; Values: in Pointer)
+    with Import => True, Convention => StdCall, External_Name => "alBufferiv";
 
   -- Get Buffer parameters
-  procedure Get_Buffer_F (BID: in UInt; Value: in Pointer);
+  procedure Get_Buffer_F (BID: in UInt; Value: in Pointer)
+    with Import => True, Convention => StdCall, External_Name => "alGetBufferf";
 
   procedure Get_Buffer_3F
     ( BID: in UInt;
@@ -566,11 +655,16 @@ package Oto.AL is
       Value1: in Pointer;
       Value2: in Pointer;
       Value3: in Pointer
-    );
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetBuffer3f";
 
-  procedure Get_Buffer_FV (BID: in UInt; Param: in Enum; Values: in Float);
+  procedure Get_Buffer_FV (BID: in UInt; Param: in Enum; Values: in Float)
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetBufferfv";
 
-  procedure Get_Buffer_I (BID: in UInt; Param: in Enum; Value: in Pointer);
+  procedure Get_Buffer_I (BID: in UInt; Param: in Enum; Value: in Pointer)
+    with Import => True, Convention => StdCall, External_Name => "alGetBufferi";
 
   procedure Get_Buffer_3I
     ( BID: in UInt;
@@ -578,76 +672,34 @@ package Oto.AL is
       Value1: in Pointer;
       Value2: in Pointer;
       Value3: in Pointer
-    );
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetBuffer3i";
 
-  procedure Get_Buffer_IV (BID: in UInt; Param: in Enum; Values: in Pointer);
+  procedure Get_Buffer_IV (BID: in UInt; Param: in Enum; Values: in Pointer)
+    with Import => True, Convention => StdCall,
+         External_Name => "alGetBufferiv";
 
   -- Global Parameters
-  procedure Doppler_Factor (Value: in Float);
+  procedure Doppler_Factor (Value: in Float)
+    with Import => True, Convention => StdCall,
+         External_Name => "alDopplerFactor";
 
-  procedure Doppler_Velocity (Value: in Float);
+  procedure Doppler_Velocity (Value: in Float)
+    with Import => True, Convention => StdCall,
+         External_Name => "alDopplerVelocity";
 
-  procedure Speed_Of_Sound (Value: in Float);
+  procedure Speed_Of_Sound (Value: in Float)
+    with Import => True, Convention => StdCall,
+         External_Name => "alSpeedOfSound";
 
-  procedure Distance_Model (Distance_Model: in Enum);
+  procedure Distance_Model (Distance_Model: in Enum)
+    with Import => True, Convention => StdCall,
+         External_Name => "alDistanceModel";
 
   ---------------------------------------------------------------------------
 
   -- NOTE: Pointer to function types are not bound.
-
-  ---------------------------------------------------------------------------
-
-private
-
-  ---------------------------------------------------------------------------
-
-                            -------------------
-                            -- I M P O R T S --
-                            -------------------
-
-  ---------------------------------------------------------------------------
-
-  pragma Import (StdCall, Enable, "alEnable");
-  pragma Import (StdCall, Disable, "alDisable");
-  pragma Import (StdCall, Is_Enabled, "alIsEnabled");
-  pragma Import (StdCall, Get_Error, "alGetError");
-  pragma Import (StdCall, Listener_FV, "alListenerfv");
-  pragma Import (StdCall, Listener_IV, "alListeneriv");
-  pragma Import (StdCall, Get_Listener_F, "alGetListenerf");
-  pragma Import (StdCall, Get_Listener_3F, "alGetListener3f");
-  pragma Import (StdCall, Get_Listener_FV, "alGetListenerfv");
-  pragma Import (StdCall, Get_Listener_I, "alGetListeneri");
-  pragma Import (StdCall, Get_Listener_3I, "alGetListener3i");
-  pragma Import (StdCall, Get_Listener_IV, "alGetListeneriv");
-  pragma Import (StdCall, Gen_Sources, "alGenSources");
-  pragma Import (StdCall, Delete_Sources, "alDeleteSources");
-  pragma Import (StdCall, Is_Source, "alIsSource");
-  pragma Import (StdCall, Source_FV, "alSourcefv");
-  pragma Import (StdCall, Source_IV, "alSourceiv");
-  pragma Import (StdCall, Get_Source_F, "alGetSourcef");
-  pragma Import (StdCall, Get_Source_3F, "alGetSource3f");
-  pragma Import (StdCall, Get_Source_FV, "alGetSourcefv");
-  pragma Import (StdCall, Get_Source_I, "alGetSourcei");
-  pragma Import (StdCall, Get_Source_3I, "alGetSource3i");
-  pragma Import (StdCall, Get_Source_IV, "alGetSourceiv");
-  pragma Import (StdCall, Source_Queue_Buffers, "alSourceQueueBuffers");
-  pragma Import (StdCall, Source_Unqueue_Buffers, "alSourceUnqueueBuffers");
-  pragma Import (StdCall, Gen_Buffers, "alGenBuffers");
-  pragma Import (StdCall, Delete_Buffers, "alDeleteBuffers");
-  pragma Import (StdCall, Is_Buffer, "alIsBuffer");
-  pragma Import (StdCall, Buffer_Data, "alBufferData");
-  pragma Import (StdCall, Buffer_FV, "alBufferfv");
-  pragma Import (StdCall, Buffer_IV, "alBufferiv");
-  pragma Import (StdCall, Get_Buffer_F, "alGetBufferf");
-  pragma Import (StdCall, Get_Buffer_3F, "alGetBuffer3f");
-  pragma Import (StdCall, Get_Buffer_FV, "alGetBufferfv");
-  pragma Import (StdCall, Get_Buffer_I, "alGetBufferi");
-  pragma Import (StdCall, Get_Buffer_3I, "alGetBuffer3i");
-  pragma Import (StdCall, Get_Buffer_IV, "alGetBufferiv");
-  pragma Import (StdCall, Doppler_Factor, "alDopplerFactor");
-  pragma Import (StdCall, Doppler_Velocity, "alDopplerVelocity");
-  pragma Import (StdCall, Speed_Of_Sound, "alSpeedOfSound");
-  pragma Import (StdCall, Distance_Model, "alDistanceModel");
 
   ---------------------------------------------------------------------------
 
