@@ -124,29 +124,46 @@ package Oto.ALC is
   function Create_Context
     ( ADevice: in Device;
       Attr_List: in Pointer
-    ) return Context;
+    ) return Context
+    with Import => True, Convention => StdCall,
+         External_Name => "alcCreateContext";
 
-  function Make_Context_Current (AContext: in Context) return Bool;
+  function Make_Context_Current (AContext: in Context) return Bool
+    with Import => True, Convention => StdCall,
+         External_Name => "alcMakeContextCurrent";
 
-  procedure Process_Context (AContext: in Context);
+  procedure Process_Context (AContext: in Context)
+    with Import => True, Convention => StdCall,
+         External_Name => "alcProcessContext";
 
-  procedure Suspend_Context (AContext: in Context);
+  procedure Suspend_Context (AContext: in Context)
+    with Import => True, Convention => StdCall,
+         External_Name => "alcSuspendContext";
 
-  procedure Destroy_Context (AContext: in Context);
+  procedure Destroy_Context (AContext: in Context)
+    with Import => True, Convention => StdCall,
+         External_Name => "alcDestroyContext";
 
-  function Get_Current_Context return Context;
+  function Get_Current_Context return Context
+    with Import => True, Convention => StdCall,
+         External_Name => "alcGetCurrentContext";
 
-  function Get_Contexts_Device (AContext: in Context) return Device;
+  function Get_Contexts_Device (AContext: in Context) return Device
+    with Import => True, Convention => StdCall,
+         External_Name => "alcGetContextsDevice";
 
   -- Device Management
-  function Open_Device (Device_Name: in String) return Device;
-  pragma Inline (Open_Device);
+  function Open_Device (Device_Name: in String) return Device
+    with Inline => True;
 
-  function Close_Device (ADevice: in Device) return Bool;
+  function Close_Device (ADevice: in Device) return Bool
+    with Import => True, Convention => StdCall,
+         External_Name => "alcCloseDevice";
 
   -- Error support.
   -- Obtain the most recent Context error
-  function Get_Error (ADevice: in Device) return Enum;
+  function Get_Error (ADevice: in Device) return Enum
+    with Import => True, Convention => StdCall, External_Name => "alcGetError";
 
   -- Extension support.
   -- Query for the presence of an extension, and obtain any appropriate
@@ -154,31 +171,33 @@ package Oto.ALC is
   function Is_Extension_Present
     ( ADevice: in Device;
       Ext_Name: in String
-    ) return Bool;
-  pragma Inline (Is_Extension_Present);
+    ) return Bool
+    with Inline => True;
 
   function Get_Proc_Address
     ( ADevice: in Device;
       Func_Name: in String
-    ) return Pointer;
-  pragma Inline (Get_Proc_Address);
+    ) return Pointer
+    with Inline => True;
 
   function Get_Enum_Value
     ( ADevice: in Device;
       Enum_Name: in String
-    ) return Enum;
-  pragma Inline (Get_Enum_Value);
+    ) return Enum
+    with Inline => True;
 
   -- Query functions
-  function Get_String (ADevice: in Device; Param: in Enum) return String;
-  pragma Inline (Get_String);
+  function Get_String (ADevice: in Device; Param: in Enum) return String
+    with Inline => True;
 
   procedure Get_Integer
     ( ADevice: in Device;
       Param: in Enum;
       Size: in SizeI;
       Data: in Pointer
-    );
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alcGetIntegerv";
 
   -- Capture functions
   function Capture_Open_Device
@@ -186,51 +205,32 @@ package Oto.ALC is
       Frequency: in UInt;
       Format: in Enum;
       Buffer_Size: in SizeI
-    ) return Device;
-  pragma Inline (Capture_Open_Device);
+    ) return Device
+    with Inline => True;
 
-  function Capture_Close_Device (ADevice: in Device) return Bool;
+  function Capture_Close_Device (ADevice: in Device) return Bool
+    with Import => True, Convention => StdCall,
+         External_Name => "alcCaptureCloseDevice";
 
-  procedure Capture_Start (ADevice: in Device);
+  procedure Capture_Start (ADevice: in Device)
+    with Import => True, Convention => StdCall,
+         External_Name => "alcCaptureStart";
 
-  procedure Capture_Stop (ADevice: in Device);
+  procedure Capture_Stop (ADevice: in Device)
+    with Import => True, Convention => StdCall,
+         External_Name => "alcCaptureStop";
 
   procedure Capture_Samples
     ( ADevice: in Device;
       Buffer: in Pointer;
       Samples: in SizeI
-    );
+    )
+    with Import => True, Convention => StdCall,
+         External_Name => "alcCaptureSamples";
 
   ---------------------------------------------------------------------------
 
   -- NOTE: Pointer-To-Function types are not bound.
-
-  ---------------------------------------------------------------------------
-
-private
-
-  ---------------------------------------------------------------------------
-
-                            -------------------
-                            -- I M P O R T S --
-                            -------------------
-
-  ---------------------------------------------------------------------------
-
-  pragma Import (StdCall, Create_Context, "alcCreateContext");
-  pragma Import (StdCall, Make_Context_Current, "alcMakeContextCurrent");
-  pragma Import (StdCall, Process_Context, "alcProcessContext");
-  pragma Import (StdCall, Suspend_Context, "alcSuspendContext");
-  pragma Import (StdCall, Destroy_Context, "alcDestroyContext");
-  pragma Import (StdCall, Get_Current_Context, "alcGetCurrentContext");
-  pragma Import (StdCall, Get_Contexts_Device, "alcGetContextsDevice");
-  pragma Import (StdCall, Close_Device, "alcCloseDevice");
-  pragma Import (StdCall, Get_Error, "alcGetError");
-  pragma Import (StdCall, Get_Integer, "alcGetIntegerv");
-  pragma Import (StdCall, Capture_Close_Device, "alcCaptureCloseDevice");
-  pragma Import (StdCall, Capture_Start, "alcCaptureStart");
-  pragma Import (StdCall, Capture_Stop, "alcCaptureStop");
-  pragma Import (StdCall, Capture_Samples, "alcCaptureSamples");
 
   ---------------------------------------------------------------------------
 
