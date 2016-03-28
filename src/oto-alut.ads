@@ -93,44 +93,52 @@ package Oto.ALUT is
 
   ---------------------------------------------------------------------------
 
-  function Init (Arguments: in String_Array) return AL.Bool;
-  pragma Inline (Init);
+  function Init (Arguments: in String_Array) return AL.Bool
+    with Inline => True;
 
-  function Init_Without_Context (Arguments: in String_Array) return AL.Bool;
-  pragma Inline (Init_Without_Context);
+  function Init_Without_Context (Arguments: in String_Array) return AL.Bool
+    with Inline => True;
 
   -- alutExit is bound to Quit instead of Exit due to "exit" being Ada keyword.
-  function Quit return AL.Bool;
+  function Quit return AL.Bool
+    with Import => True, Convention => StdCall, External_Name => "alutExit";
 
-  function Get_Error return AL.Enum;
+  function Get_Error return AL.Enum
+    with Import => True, Convention => StdCall, External_Name => "alutGetError";
 
-  function Get_Error_String (Error: in AL.Enum) return String;
-  pragma Inline (Get_Error_String);
+  function Get_Error_String (Error: in AL.Enum) return String
+    with Inline => True;
 
-  function Create_Buffer_From_File (File_Name: in String) return AL.UInt;
-  pragma Inline (Create_Buffer_From_File);
+  function Create_Buffer_From_File (File_Name: in String) return AL.UInt
+    with Inline => True;
 
   function Create_Buffer_From_File_Image
     ( Data  : in AL.Pointer;
       Length: in AL.SizeI
-    ) return AL.UInt;
+    ) return AL.UInt
+    with Import => True, Convention => StdCall,
+         External_Name => "alutCreateBufferFromFileImage";
 
-  function Create_Buffer_Hello_World return AL.UInt;
+  function Create_Buffer_Hello_World return AL.UInt
+    with Import => True, Convention => StdCall,
+         External_Name => "alutCreateBufferHelloWorld";
 
   function Create_Buffer_Waveform
     ( Waveshape : in AL.Enum;
       Frequency : in Float;
       Phase     : in Float;
       Duration  : in Float
-    ) return AL.UInt;
+    ) return AL.UInt
+    with Import => True, Convention => StdCall,
+         External_Name => "alutCreateBufferWaveform";
 
   function Load_Memory_From_File
     ( File_Name : in String;
       Format    : in AL.Pointer;
       Size      : in AL.Pointer;
       Frequency : in AL.Pointer
-    ) return AL.Pointer;
-  pragma Inline (Load_Memory_From_File);
+    ) return AL.Pointer
+    with Inline => True;
 
   function Load_Memory_From_File_Image
     ( Data      : in AL.Pointer;
@@ -138,13 +146,17 @@ package Oto.ALUT is
       Format    : in AL.Pointer;
       Size      : in AL.Pointer;
       Frequency : in AL.Pointer
-    ) return AL.Pointer;
+    ) return AL.Pointer
+    with Import => True, Convention => StdCall,
+         External_NAme => "alutLoadMemoryFromFileImage";
 
   function Load_Memory_Hello_World
     ( Format    : in AL.Pointer;
       Size      : in AL.Pointer;
       Frequency : AL.Pointer
-    ) return AL.Pointer;
+    ) return AL.Pointer
+    with Import => True, Convention => StdCall,
+         External_Name => "alutLoadMemoryHelloWorld";
 
   function Load_Memory_Wave_Form
     ( Waveshape : in AL.Enum;
@@ -154,43 +166,24 @@ package Oto.ALUT is
       Format    : in AL.Pointer;
       Size      : in AL.Pointer;
       Freq      : in AL.Pointer
-    ) return AL.Pointer;
+    ) return AL.Pointer
+    with Import => True, Convention => StdCall,
+         External_Name => "alutLoadMemoryWaveform";
 
-  function Get_MIME_Types (Loader: in AL.Enum) return String;
-  pragma Inline (Get_MIME_Types);
+  function Get_MIME_Types (Loader: in AL.Enum) return String
+    with Inline => True;
 
-  function Get_Major_Version return AL.Int;
+  function Get_Major_Version return AL.Int
+    with Import => True, Convention => StdCall,
+         External_Name => "alutGetMajorVersion";
 
-  function Get_Minor_Version return AL.Int;
+  function Get_Minor_Version return AL.Int
+    with Import => True, Convention => StdCall,
+         External_Name => "alutGetMinorVersion";
 
-  function Sleep (Duration: in Float) return AL.Bool;
-
-  ---------------------------------------------------------------------------
-
-private
-
-  ---------------------------------------------------------------------------
-
-                          -------------------
-                          -- I M P O R T S --
-                          -------------------
-
-  ---------------------------------------------------------------------------
-
-  pragma Import (StdCall, Quit, "alutExit");
-  pragma Import (StdCall, Get_Error, "alutGetError");
-  pragma Import
-    ( StdCall, Create_Buffer_From_File_Image, "alutCreateBufferFromFileImage" );
-  pragma Import
-    ( StdCall, Create_Buffer_Hello_World, "alutCreateBufferHelloWorld" );
-  pragma Import (StdCall, Create_Buffer_Waveform, "alutCreateBufferWaveform");
-  pragma Import
-    ( StdCall, Load_Memory_From_File_Image, "alutLoadMemoryFromFileImage" );
-  pragma Import (StdCall, Load_Memory_Hello_World, "alutLoadMemoryHelloWorld");
-  pragma Import (StdCall, Load_Memory_Wave_Form, "alutLoadMemoryWaveform");
-  pragma Import (StdCall, Get_Major_Version, "alutGetMajorVersion");
-  pragma Import (StdCall, Get_Minor_Version, "alutGetMinorVersion");
-  pragma Import (StdCall, Sleep, "alutSleep");
+  function Sleep (Duration: in Float) return AL.Bool
+    with Import => True, Convention => StdCall,
+         External_Name => "alutSleep";
 
   ---------------------------------------------------------------------------
 

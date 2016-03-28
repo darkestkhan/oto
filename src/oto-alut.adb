@@ -56,8 +56,8 @@ package body Oto.ALUT is
     function alutInit
       ( Argcp : in AL.Pointer;
         Argv  : in CStrings.chars_ptr_array
-      ) return AL.Bool;
-    pragma Import (StdCall, alutInit, "alutInit");
+      ) return AL.Bool
+      with Import => True, Convention => StdCall, External_Name => "alutInit";
 
     Argcp : constant AL.Int := AL.Int (Arguments'Length);
 
@@ -100,8 +100,9 @@ package body Oto.ALUT is
     function alutInitWithoutContext
       ( Argcp : in AL.Pointer;
         Argv  : in CStrings.chars_ptr_array
-      ) return AL.Bool;
-    pragma Import (StdCall, alutInitWithoutContext, "alutInitWithoutContext");
+      ) return AL.Bool
+      with Import => True, Convention => StdCall,
+           External_Name => "alutInitWithoutContext";
 
     Argcp : constant AL.Int := AL.Int (Arguments'Length);
 
@@ -141,8 +142,9 @@ package body Oto.ALUT is
 
   function Get_Error_String (Error: in AL.Enum) return String
   is
-    function alutGetErrorString (Error: in AL.Enum) return CStrings.chars_ptr;
-    pragma Import (StdCall, alutGetErrorString, "alutGetErrorString");
+    function alutGetErrorString (Error: in AL.Enum) return CStrings.chars_ptr
+      with Import => True, Convention => StdCall,
+           External_Name => "alutGetErrorString";
   begin
     return IC.To_Ada (CStrings.Value (alutGetErrorString (Error)));
   end Get_Error_String;
@@ -151,9 +153,9 @@ package body Oto.ALUT is
 
   function Create_Buffer_From_File (File_Name: in String) return AL.UInt
   is
-    function alutCreateBufferFromFile (F: in CStrings.chars_ptr) return AL.UInt;
-    pragma Import
-    ( StdCall, alutCreateBufferFromFile, "alutCreateBufferFromFile" );
+    function alutCreateBufferFromFile (F: in CStrings.chars_ptr) return AL.UInt
+      with Import => True, Convention => StdCall,
+           External_Name => "alutCreateBufferFromFile";
 
     CString: CStrings.char_array_access :=
       new IC.char_array'(IC.To_C (File_Name));
@@ -179,8 +181,9 @@ package body Oto.ALUT is
         Format    : in AL.Pointer;
         Size      : in AL.Pointer;
         Frequency : in AL.Pointer
-      ) return AL.Pointer;
-    pragma Import (StdCall, alutLoadMemoryFromFile, "alutLoadMemoryFromFile");
+      ) return AL.Pointer
+      with Import => True, Convention => StdCall,
+           External_Name => "alutLoadMemoryFromFile";
 
     CString: CStrings.char_array_access :=
       new IC.char_array'(IC.To_C (File_Name));
@@ -202,8 +205,9 @@ package body Oto.ALUT is
 
   function Get_MIME_Types (Loader: in AL.Enum) return String
   is
-    function alutGetMIMETypes (Loader: in AL.Enum) return CStrings.chars_ptr;
-    pragma Import (StdCall, alutGetMIMETypes, "alutGetMIMETypes");
+    function alutGetMIMETypes (Loader: in AL.Enum) return CStrings.chars_ptr
+      with Import => True, Convention => StdCall,
+           External_Name => "alutGetMIMETypes";
   begin
     return IC.To_Ada (CStrings.Value (alutGetMIMETypes (Loader)));
   end Get_MIME_Types;
