@@ -1,6 +1,6 @@
 project Oto is
 
-  Version := "0.1";
+  Version := "0.2";
   Name    := "oto";
 
   for Languages use ("Ada");
