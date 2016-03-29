@@ -21,6 +21,7 @@ with System;
 with Oto.Binary;
 use Oto;
 
+use type Oto.Binary.S_Word;
 package Oto.AL is
 
   ---------------------------------------------------------------------------
@@ -278,39 +279,57 @@ package Oto.AL is
 
   -- State retrieval
   function Get_String (Param: in Enum) return String
-    with Inline => True;
+    with Inline => True,
+         Pre => Param in AL_VENDOR .. AL_EXTENSIONS or Param = AL_NO_ERROR or
+                Param in AL_INVALID_NAME .. AL_OUT_OF_MEMORY;
 
   procedure Get_Boolean (Param: in Enum; Data: in Pointer)
     with Import => True, Convention => StdCall,
-         External_Name => "alGetBooleanv";
+         External_Name => "alGetBooleanv",
+         Pre => Param in AL_DOPPLER_FACTOR | AL_SPEED_OF_SOUND |
+                         AL_DISTANCE_MODEL;
 
   function Get_Boolean (Param: in Enum) return Bool
     with Import => True, Convention => StdCall,
-         External_Name => "alGetBoolean";
+         External_Name => "alGetBoolean",
+         Pre => Param in AL_DOPPLER_FACTOR | AL_SPEED_OF_SOUND |
+                         AL_DISTANCE_MODEL;
 
   procedure Get_Integer (Param: in Enum; Data: in Pointer)
     with Import => True, Convention => StdCall,
-         External_Name => "alGetIntegerv";
+         External_Name => "alGetIntegerv",
+         Pre => Param in AL_DOPPLER_FACTOR | AL_SPEED_OF_SOUND |
+                         AL_DISTANCE_MODEL;
 
   function Get_Integer (Param: in Enum) return Int
     with Import => True, Convention => StdCall,
-         External_Name => "alGetInteger";
+         External_Name => "alGetInteger",
+         Pre => Param in AL_DOPPLER_FACTOR | AL_SPEED_OF_SOUND |
+                         AL_DISTANCE_MODEL;
 
   procedure Get_Float (Param: in Enum; Data: in Pointer)
     with Import => True, Convention => StdCall,
-         External_Name => "alGetFloatv";
+         External_Name => "alGetFloatv",
+         Pre => Param in AL_DOPPLER_FACTOR | AL_SPEED_OF_SOUND |
+                         AL_DISTANCE_MODEL;
 
   function Get_Float (Param: in Enum) return Float
     with Import => True, Convention => StdCall,
-         External_Name => "alGetFloat";
+         External_Name => "alGetFloat",
+         Pre => Param in AL_DOPPLER_FACTOR | AL_SPEED_OF_SOUND |
+                         AL_DISTANCE_MODEL;
 
   procedure Get_Double (Param: in Enum; Data: in Pointer)
     with Import => True, Convention => StdCall,
-         External_Name => "alGetDoublev";
+         External_Name => "alGetDoublev",
+         Pre => Param in AL_DOPPLER_FACTOR | AL_SPEED_OF_SOUND |
+                         AL_DISTANCE_MODEL;
 
   function Get_Double (Param: in Enum) return Double
     with Import => True, Convention => StdCall,
-         External_Name => "alGetDouble";
+         External_Name => "alGetDouble",
+         Pre => Param in AL_DOPPLER_FACTOR | AL_SPEED_OF_SOUND |
+                         AL_DISTANCE_MODEL;
 
   -- Error support.
   -- Obtain the most recent error generated in the AL state machine.
@@ -343,7 +362,8 @@ package Oto.AL is
   -- Set Listener parameters
   procedure Listener (Param: in Enum; Value: in Float)
     with Import => True, Convention => StdCall,
-         External_Name => "alListenerf";
+         External_Name => "alListenerf",
+         Pre => Param in AL_POSITION | AL_GAIN | AL_VELOCITY | AL_ORIENTATION;
 
   procedure Listener
     ( Param: in Enum;
@@ -352,11 +372,13 @@ package Oto.AL is
       Value3: in Float
     )
     with Import => True, Convention => StdCall,
-         External_Name => "alListener3f";
+         External_Name => "alListener3f",
+         Pre => Param in AL_POSITION | AL_GAIN | AL_VELOCITY | AL_ORIENTATION;
 
   procedure Listener (Param: in Enum; Value: in Int)
     with Import => True, Convention => StdCall,
-         External_Name => "alListeneri";
+         External_Name => "alListeneri",
+         Pre => Param in AL_POSITION | AL_GAIN | AL_VELOCITY | AL_ORIENTATION;
 
   procedure Listener
     ( Param: in Enum;
@@ -365,18 +387,22 @@ package Oto.AL is
       Value3: in Int
     )
     with Import => True, Convention => StdCall,
-         External_Name => "alListener3i";
+         External_Name => "alListener3i",
+         Pre => Param in AL_POSITION | AL_GAIN | AL_VELOCITY | AL_ORIENTATION;
 
   procedure Listener_FV (Param: in Enum; Values: in Pointer)
-    with Import => True, Convention => StdCall, External_Name => "alListenerfv";
+    with Import => True, Convention => StdCall, External_Name => "alListenerfv",
+         Pre => Param in AL_POSITION | AL_GAIN | AL_VELOCITY | AL_ORIENTATION;
 
   procedure Listener_IV (Param: in Enum; Values: in Pointer)
-    with Import => True, Convention => StdCall, External_Name => "alListeneriv";
+    with Import => True, Convention => StdCall, External_Name => "alListeneriv",
+         Pre => Param in AL_POSITION | AL_GAIN | AL_VELOCITY | AL_ORIENTATION;
 
   -- Get Listener parameters
   procedure Get_Listener_F (Param: in Enum; Value: in Pointer)
     with Import => True, Convention => StdCall,
-         External_Name => "alGetListenerf";
+         External_Name => "alGetListenerf",
+         Pre => Param in AL_POSITION | AL_GAIN | AL_VELOCITY | AL_ORIENTATION;
 
   procedure Get_Listener_3F
     ( Param: in Enum;
@@ -385,15 +411,18 @@ package Oto.AL is
       Value3: in Pointer
     )
     with Import => True, Convention => StdCall,
-         External_Name => "alGetListener3f";
+         External_Name => "alGetListener3f",
+         Pre => Param in AL_POSITION | AL_GAIN | AL_VELOCITY | AL_ORIENTATION;
 
   procedure Get_Listener_FV (Param: in Enum; Values: in Pointer)
     with Import => True, Convention => StdCall,
-         External_Name => "alGetListenerfv";
+         External_Name => "alGetListenerfv",
+         Pre => Param in AL_POSITION | AL_GAIN | AL_VELOCITY | AL_ORIENTATION;
 
   procedure Get_Listener_I (Param: in Enum; Value: in Pointer)
     with Import => True, Convention => StdCall,
-         External_Name => "alGetListeneri";
+         External_Name => "alGetListeneri",
+         Pre => Param in AL_POSITION | AL_GAIN | AL_VELOCITY | AL_ORIENTATION;
 
   procedure Get_Listener_3I
     ( Param: in Enum;
@@ -402,11 +431,13 @@ package Oto.AL is
       Value3: in Pointer
     )
     with Import => True, Convention => StdCall,
-         External_Name => "alGetListener3i";
+         External_Name => "alGetListener3i",
+         Pre => Param in AL_POSITION | AL_GAIN | AL_VELOCITY | AL_ORIENTATION;
 
   procedure Get_Listener_IV (Param: in Enum; Values: in Pointer)
     with Import => True, Convention => StdCall,
-         External_Name => "alGetListeneriv";
+         External_Name => "alGetListeneriv",
+         Pre => Param in AL_POSITION | AL_GAIN | AL_VELOCITY | AL_ORIENTATION;
 
   -- SOURCE
   -- Sources represent individual sound objects in 3D-space.
@@ -431,7 +462,7 @@ package Oto.AL is
   -- Cone Outer Gain          AL_CONE_OUTER_GAIN      Int or Float
   -- Pitch                    AL_PITCH                Float
   -- Looping                  AL_LOOPING              Bool (AL_TRUE or AL_FALSE)
-  -- MS Offset                AL_MSEC_OFFSET          Int or Float
+  -- MS Offset                AL_SEC_OFFSET           Int or Float
   -- Byte Offset              AL_BYTE_OFFSET          Int or Float
   -- Sample Offset            AL_SAMPLE_OFFSET        Int or Float
   -- Attached Buffer          AL_BUFFER               Int
@@ -455,7 +486,14 @@ package Oto.AL is
   -- Set Source parameters
   procedure Source (SID: in UInt; Param: in Enum; Value: in Float)
     with Import => True, Convention => StdCall,
-         External_Name => "alSourcef";
+         External_Name => "alSourcef",
+         Pre => Param in  AL_GAIN | AL_MIN_GAIN | AL_MAX_GAIN | AL_POSITION |
+                          AL_VELOCITY | AL_DIRECTION | AL_SOURCE_RELATIVE |
+                          AL_REFERENCE_DISTANCE | AL_MAX_DISTANCE |
+                          AL_ROLLOFF_FACTOR | AL_CONE_INNER_ANGLE |
+                          AL_CONE_OUTER_ANGLE | AL_CONE_OUTER_GAIN |
+                          AL_PITCH | AL_LOOPING | AL_SEC_OFFSET |
+                          AL_BYTE_OFFSET | AL_SAMPLE_OFFSET | AL_BUFFER;
 
   procedure Source
     ( SID: in UInt;
@@ -465,11 +503,25 @@ package Oto.AL is
       Value3: in Float
     )
     with Import => True, Convention => StdCall,
-         External_Name => "alSource3f";
+         External_Name => "alSource3f",
+         Pre => Param in  AL_GAIN | AL_MIN_GAIN | AL_MAX_GAIN | AL_POSITION |
+                          AL_VELOCITY | AL_DIRECTION | AL_SOURCE_RELATIVE |
+                          AL_REFERENCE_DISTANCE | AL_MAX_DISTANCE |
+                          AL_ROLLOFF_FACTOR | AL_CONE_INNER_ANGLE |
+                          AL_CONE_OUTER_ANGLE | AL_CONE_OUTER_GAIN |
+                          AL_PITCH | AL_LOOPING | AL_SEC_OFFSET |
+                          AL_BYTE_OFFSET | AL_SAMPLE_OFFSET | AL_BUFFER;
 
   procedure Source (SID: in UInt; Param: in Enum; Value: in Int)
     with Import => True, Convention => StdCall,
-         External_Name => "alSourcei";
+         External_Name => "alSourcei",
+         Pre => Param in  AL_GAIN | AL_MIN_GAIN | AL_MAX_GAIN | AL_POSITION |
+                          AL_VELOCITY | AL_DIRECTION | AL_SOURCE_RELATIVE |
+                          AL_REFERENCE_DISTANCE | AL_MAX_DISTANCE |
+                          AL_ROLLOFF_FACTOR | AL_CONE_INNER_ANGLE |
+                          AL_CONE_OUTER_ANGLE | AL_CONE_OUTER_GAIN |
+                          AL_PITCH | AL_LOOPING | AL_SEC_OFFSET |
+                          AL_BYTE_OFFSET | AL_SAMPLE_OFFSET | AL_BUFFER;
 
   procedure Source
     ( SID: in UInt;
@@ -479,17 +531,47 @@ package Oto.AL is
       Value3: in Int
     )
     with Import => True, Convention => StdCall,
-         External_Name => "alSource3i";
+         External_Name => "alSource3i",
+         Pre => Param in  AL_GAIN | AL_MIN_GAIN | AL_MAX_GAIN | AL_POSITION |
+                          AL_VELOCITY | AL_DIRECTION | AL_SOURCE_RELATIVE |
+                          AL_REFERENCE_DISTANCE | AL_MAX_DISTANCE |
+                          AL_ROLLOFF_FACTOR | AL_CONE_INNER_ANGLE |
+                          AL_CONE_OUTER_ANGLE | AL_CONE_OUTER_GAIN |
+                          AL_PITCH | AL_LOOPING | AL_SEC_OFFSET |
+                          AL_BYTE_OFFSET | AL_SAMPLE_OFFSET | AL_BUFFER;
 
   procedure Source_FV (SID: in UInt; Param: in Enum; Values: in Pointer)
-    with Import => True, Convention => StdCall, External_Name => "alSourcefv";
+    with Import => True, Convention => StdCall, External_Name => "alSourcefv",
+         Pre => Param in  AL_GAIN | AL_MIN_GAIN | AL_MAX_GAIN | AL_POSITION |
+                          AL_VELOCITY | AL_DIRECTION | AL_SOURCE_RELATIVE |
+                          AL_REFERENCE_DISTANCE | AL_MAX_DISTANCE |
+                          AL_ROLLOFF_FACTOR | AL_CONE_INNER_ANGLE |
+                          AL_CONE_OUTER_ANGLE | AL_CONE_OUTER_GAIN |
+                          AL_PITCH | AL_LOOPING | AL_SEC_OFFSET |
+                          AL_BYTE_OFFSET | AL_SAMPLE_OFFSET | AL_BUFFER;
 
   procedure Source_IV (SID: in UInt; Param: in Enum; Values: in Pointer)
-    with Import => True, Convention => StdCall, External_Name => "alSourceiv";
+    with Import => True, Convention => StdCall, External_Name => "alSourceiv",
+         Pre => Param in  AL_GAIN | AL_MIN_GAIN | AL_MAX_GAIN | AL_POSITION |
+                          AL_VELOCITY | AL_DIRECTION | AL_SOURCE_RELATIVE |
+                          AL_REFERENCE_DISTANCE | AL_MAX_DISTANCE |
+                          AL_ROLLOFF_FACTOR | AL_CONE_INNER_ANGLE |
+                          AL_CONE_OUTER_ANGLE | AL_CONE_OUTER_GAIN |
+                          AL_PITCH | AL_LOOPING | AL_SEC_OFFSET |
+                          AL_BYTE_OFFSET | AL_SAMPLE_OFFSET | AL_BUFFER;
 
   -- Get Source parameters
   procedure Get_Source_F (SID: in UInt; Param: in Enum; Value: in Pointer)
-    with Import => True, Convention => StdCall, External_Name => "alGetSourcef";
+    with Import => True, Convention => StdCall, External_Name => "alGetSourcef",
+         Pre => Param in  AL_GAIN | AL_MIN_GAIN | AL_MAX_GAIN | AL_POSITION |
+                          AL_VELOCITY | AL_DIRECTION | AL_SOURCE_RELATIVE |
+                          AL_REFERENCE_DISTANCE | AL_MAX_DISTANCE |
+                          AL_ROLLOFF_FACTOR | AL_CONE_INNER_ANGLE |
+                          AL_CONE_OUTER_ANGLE | AL_CONE_OUTER_GAIN |
+                          AL_PITCH | AL_LOOPING | AL_SEC_OFFSET |
+                          AL_BYTE_OFFSET | AL_SAMPLE_OFFSET | AL_BUFFER |
+                          AL_SOURCE_STATE | AL_BUFFERS_QUEUED |
+                          AL_BUFFERS_PROCESSED;
 
   procedure Get_Source_3F
     ( SID: in UInt;
@@ -499,14 +581,41 @@ package Oto.AL is
       Value3: in Pointer
     )
     with Import => True, Convention => StdCall,
-         External_Name => "alGetSource3f";
+         External_Name => "alGetSource3f",
+         Pre => Param in  AL_GAIN | AL_MIN_GAIN | AL_MAX_GAIN | AL_POSITION |
+                          AL_VELOCITY | AL_DIRECTION | AL_SOURCE_RELATIVE |
+                          AL_REFERENCE_DISTANCE | AL_MAX_DISTANCE |
+                          AL_ROLLOFF_FACTOR | AL_CONE_INNER_ANGLE |
+                          AL_CONE_OUTER_ANGLE | AL_CONE_OUTER_GAIN |
+                          AL_PITCH | AL_LOOPING | AL_SEC_OFFSET |
+                          AL_BYTE_OFFSET | AL_SAMPLE_OFFSET | AL_BUFFER |
+                          AL_SOURCE_STATE | AL_BUFFERS_QUEUED |
+                          AL_BUFFERS_PROCESSED;
 
   procedure Get_Source_FV (SID: in UInt; Param: in Enum; Values: in Pointer)
     with Import => True, Convention => StdCall,
-         External_Name => "alGetSourcefv";
+         External_Name => "alGetSourcefv",
+         Pre => Param in  AL_GAIN | AL_MIN_GAIN | AL_MAX_GAIN | AL_POSITION |
+                          AL_VELOCITY | AL_DIRECTION | AL_SOURCE_RELATIVE |
+                          AL_REFERENCE_DISTANCE | AL_MAX_DISTANCE |
+                          AL_ROLLOFF_FACTOR | AL_CONE_INNER_ANGLE |
+                          AL_CONE_OUTER_ANGLE | AL_CONE_OUTER_GAIN |
+                          AL_PITCH | AL_LOOPING | AL_SEC_OFFSET |
+                          AL_BYTE_OFFSET | AL_SAMPLE_OFFSET | AL_BUFFER |
+                          AL_SOURCE_STATE | AL_BUFFERS_QUEUED |
+                          AL_BUFFERS_PROCESSED;
 
   procedure Get_Source_I (SID: in UInt; Param: in Enum; Value: in Pointer)
-    with Import => True, Convention => StdCall, External_Name => "alGetSourcei";
+    with Import => True, Convention => StdCall, External_Name => "alGetSourcei",
+         Pre => Param in  AL_GAIN | AL_MIN_GAIN | AL_MAX_GAIN | AL_POSITION |
+                          AL_VELOCITY | AL_DIRECTION | AL_SOURCE_RELATIVE |
+                          AL_REFERENCE_DISTANCE | AL_MAX_DISTANCE |
+                          AL_ROLLOFF_FACTOR | AL_CONE_INNER_ANGLE |
+                          AL_CONE_OUTER_ANGLE | AL_CONE_OUTER_GAIN |
+                          AL_PITCH | AL_LOOPING | AL_SEC_OFFSET |
+                          AL_BYTE_OFFSET | AL_SAMPLE_OFFSET | AL_BUFFER |
+                          AL_SOURCE_STATE | AL_BUFFERS_QUEUED |
+                          AL_BUFFERS_PROCESSED;
 
   procedure Get_Source_3I
     ( SID: in UInt;
@@ -516,11 +625,29 @@ package Oto.AL is
       Value3: in Pointer
     )
     with Import => True, Convention => StdCall,
-         External_Name => "alGetSource3i";
+         External_Name => "alGetSource3i",
+         Pre => Param in  AL_GAIN | AL_MIN_GAIN | AL_MAX_GAIN | AL_POSITION |
+                          AL_VELOCITY | AL_DIRECTION | AL_SOURCE_RELATIVE |
+                          AL_REFERENCE_DISTANCE | AL_MAX_DISTANCE |
+                          AL_ROLLOFF_FACTOR | AL_CONE_INNER_ANGLE |
+                          AL_CONE_OUTER_ANGLE | AL_CONE_OUTER_GAIN |
+                          AL_PITCH | AL_LOOPING | AL_SEC_OFFSET |
+                          AL_BYTE_OFFSET | AL_SAMPLE_OFFSET | AL_BUFFER |
+                          AL_SOURCE_STATE | AL_BUFFERS_QUEUED |
+                          AL_BUFFERS_PROCESSED;
 
   procedure Get_Source_IV (SID: in UInt; Param: in Enum; Values: in Pointer)
     with Import => True, Convention => StdCall,
-         External_Name => "alGetSourceiv";
+         External_Name => "alGetSourceiv",
+         Pre => Param in  AL_GAIN | AL_MIN_GAIN | AL_MAX_GAIN | AL_POSITION |
+                          AL_VELOCITY | AL_DIRECTION | AL_SOURCE_RELATIVE |
+                          AL_REFERENCE_DISTANCE | AL_MAX_DISTANCE |
+                          AL_ROLLOFF_FACTOR | AL_CONE_INNER_ANGLE |
+                          AL_CONE_OUTER_ANGLE | AL_CONE_OUTER_GAIN |
+                          AL_PITCH | AL_LOOPING | AL_SEC_OFFSET |
+                          AL_BYTE_OFFSET | AL_SAMPLE_OFFSET | AL_BUFFER |
+                          AL_SOURCE_STATE | AL_BUFFERS_QUEUED |
+                          AL_BUFFERS_PROCESSED;
 
   -- Source playback calls
 
@@ -612,7 +739,11 @@ package Oto.AL is
       Freq: in SizeI
     )
     with Import => True, Convention => StdCall,
-         External_Name => "alBufferData";
+         External_Name => "alBufferData",
+         Pre => Size >= 0 and Freq > 0 and
+                Format in AL_FORMAT_MONO8 .. AL_FORMAT_STEREO16 and
+                (if Format in AL_FORMAT_MONO16 | AL_FORMAT_STEREO16
+                 then Size mod 2 = 0);
 
   -- Set Buffer parameters
   procedure Buffer (BID: in UInt; Param: in Enum; Value: in Float)
@@ -646,8 +777,9 @@ package Oto.AL is
     with Import => True, Convention => StdCall, External_Name => "alBufferiv";
 
   -- Get Buffer parameters
-  procedure Get_Buffer_F (BID: in UInt; Value: in Pointer)
-    with Import => True, Convention => StdCall, External_Name => "alGetBufferf";
+  procedure Get_Buffer_F (BID: in UInt; Param: in Enum; Value: in Pointer)
+    with Import => True, Convention => StdCall, External_Name => "alGetBufferf",
+         Pre => Param in AL_FREQUENCY | AL_SIZE | AL_BITS | AL_CHANNELS;
 
   procedure Get_Buffer_3F
     ( BID: in UInt;
@@ -657,14 +789,17 @@ package Oto.AL is
       Value3: in Pointer
     )
     with Import => True, Convention => StdCall,
-         External_Name => "alGetBuffer3f";
+         External_Name => "alGetBuffer3f",
+         Pre => Param in AL_FREQUENCY | AL_SIZE | AL_BITS | AL_CHANNELS;
 
   procedure Get_Buffer_FV (BID: in UInt; Param: in Enum; Values: in Float)
     with Import => True, Convention => StdCall,
-         External_Name => "alGetBufferfv";
+         External_Name => "alGetBufferfv",
+         Pre => Param in AL_FREQUENCY | AL_SIZE | AL_BITS | AL_CHANNELS;
 
   procedure Get_Buffer_I (BID: in UInt; Param: in Enum; Value: in Pointer)
-    with Import => True, Convention => StdCall, External_Name => "alGetBufferi";
+    with Import => True, Convention => StdCall, External_Name => "alGetBufferi",
+         Pre => Param in AL_FREQUENCY | AL_SIZE | AL_BITS | AL_CHANNELS;
 
   procedure Get_Buffer_3I
     ( BID: in UInt;
@@ -674,32 +809,36 @@ package Oto.AL is
       Value3: in Pointer
     )
     with Import => True, Convention => StdCall,
-         External_Name => "alGetBuffer3i";
+         External_Name => "alGetBuffer3i",
+         Pre => Param in AL_FREQUENCY | AL_SIZE | AL_BITS | AL_CHANNELS;
 
   procedure Get_Buffer_IV (BID: in UInt; Param: in Enum; Values: in Pointer)
     with Import => True, Convention => StdCall,
-         External_Name => "alGetBufferiv";
+         External_Name => "alGetBufferiv",
+         Pre => Param in AL_FREQUENCY | AL_SIZE | AL_BITS | AL_CHANNELS;
 
   -- Global Parameters
   procedure Doppler_Factor (Value: in Float)
     with Import => True, Convention => StdCall,
-         External_Name => "alDopplerFactor";
+         External_Name => "alDopplerFactor",
+         Pre => Value >= 0.0;
 
   procedure Doppler_Velocity (Value: in Float)
     with Import => True, Convention => StdCall,
-         External_Name => "alDopplerVelocity";
+         External_Name => "alDopplerVelocity",
+         Pre => Value > 0.0;
 
   procedure Speed_Of_Sound (Value: in Float)
     with Import => True, Convention => StdCall,
-         External_Name => "alSpeedOfSound";
+         External_Name => "alSpeedOfSound",
+         Pre => Value > 0.0;
 
-  procedure Distance_Model (Distance_Model: in Enum)
+  procedure Distance_Model (ADistance_Model: in Enum)
     with Import => True, Convention => StdCall,
-         External_Name => "alDistanceModel";
-
-  ---------------------------------------------------------------------------
-
-  -- NOTE: Pointer to function types are not bound.
+         External_Name => "alDistanceModel",
+         Pre => ADistance_Model = AL_NONE or
+                ADistance_Model in
+                  AL_INVERSE_DISTANCE .. AL_EXPONENT_DISTANCE_CLAMPED;
 
   ---------------------------------------------------------------------------
 
